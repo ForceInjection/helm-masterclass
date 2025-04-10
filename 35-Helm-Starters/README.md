@@ -1,26 +1,35 @@
 # Helm Starters
 
 ## Step-01: Introduction
+
 - We are going to learn about Helm Starter Charts
 - Create / Build a Starter Chart
 - Using starter chart build a base chart
 
 ## Step-02: Helm Starter Charts
+
 ### What are Helm Starter Charts ?
+
 1. Starter charts are same as regular Helm Charts
-2. Starter charts are reusable template that helps us in building new charts. 
-3. A new developer don't need to start from scratch in your organization if you already have starter charts. He can use them and build on top of it. 
-4.  We can also enforce certain resources that needs to be available in the created charts.
+2. Starter charts are reusable template that helps us in building new charts.
+3. A new developer don't need to start from scratch in your organization if you already have starter charts. He can use them and build on top of it.
+4. We can also enforce certain resources that needs to be available in the created charts.
+
 ### Where do we place the starter charts ?
+
 5. We need to place starter charts in folder "$HELM_DATA_HOME/starters" folder
+
 ### Are there any drawbacks ?
+
 6. The `Chart.yaml` will be overwritten by the generator.
 7. Due to that we don't get the version or dependency charts from the starter chart template.
 
 ## Step-03: Create a Simple Helm Chart and Modify to a Starter Chart
+
 - This step is completely optional for you.
 - You will have `mystarterchart` folder ready for you to move on with next steps in the demo.
-```t
+
+```bash
 # Helm Create
 helm create mystarterchart
 
@@ -48,7 +57,8 @@ helm pull https://stacksimplify.github.io/helm-charts/mychart4-0.1.0.tgz --untar
 ```
 
 ## Step-04: Test the Chart before converting it completely to Starter Chart
-```t
+
+```bash
 # Change Directory
 cd mystarterchart
 
@@ -76,7 +86,9 @@ helm uninstall myapp1
 ```
 
 ## Step-05: Replace "mystarterchart" with `<CHARTNAME>` in all files
+
 **Important Note:**  All occurrences of `<CHARTNAME>` will be replaced with the specified chart name so that starter charts can be used as templates.
+
 1. _helpers.tpl
 2. deployment.yaml
 3. service.yaml
@@ -84,9 +96,9 @@ helm uninstall myapp1
 5. Chart.yaml
 6. values.yaml (Here just in comment)
 
-
 ## Step-06: Copy mystarterchart to HELM_DATA_HOME/starters
-```t
+
+```bash
 # Helm env command
 helm env
 
@@ -105,8 +117,10 @@ cp -r mystarterchart /Users/kalyan/Library/helm/starters/
 ```
 
 ## Step-07: Create new chart using Starter Chart
+
 - [Docker Image: kubenginxhelm](https://github.com/users/stacksimplify/packages/container/package/kubenginxhelm)
-```t
+
+```bash
 # Change Directory
 cd MYCHARTS
 
@@ -127,7 +141,8 @@ helm create mychart9 --starter=mystarterchart
 ```
 
 ## Step-08: Create Helm Release from new chart created using starter chart
-```t
+
+```bash
 # Change Directory
 cd MYCHARTS/mychart9
 

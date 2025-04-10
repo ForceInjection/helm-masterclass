@@ -19,7 +19,7 @@
 
 
 ### Step-02-02: Add Custom Helm Repo
-```t
+```bash
 # List Helm Repositories
 helm repo list
 
@@ -36,13 +36,13 @@ helm search repo mychart1
 ```
 
 ## Step-03: Install Helm Chart from our Custom Helm Repository
-```t
+```bash
 # Install myapp1 Helm Chart
 helm install <RELEASE-NAME> <repo_name_in_your_local_desktop/chart_name>
 helm install myapp1 stacksimplify/mychart1 
 ```
 ## Step-04: List Resources and Access Application in Browser
-```t
+```bash
 # List Helm Release
 helm ls 
 or 
@@ -61,7 +61,7 @@ http://localhost:31231
 
 ## Step-04: Helm Upgrade
 - [kubenginx Docker Image with 1.0.0, 2.0.0, 3.0.0, 4.0.0](https://github.com/users/stacksimplify/packages/container/package/kubenginx)
-```t
+```bash
 # Review the Docker Image Versions we are using
 https://github.com/users/stacksimplify/packages/container/package/kubenginx
 Image Tags: 1.0.0, 2.0.0, 3.0.0, 4.0.0
@@ -71,7 +71,7 @@ helm upgrade <RELEASE-NAME> <repo_name_in_your_local_desktop/chart_name> --set <
 helm upgrade myapp1 stacksimplify/mychart1 --set "image.tag=2.0.0"
 ```
 ## Step-05: List Resources after helm upgrade
-```t
+```bash
 # List Helm Releases
 helm list 
 Observation: We should see Revision as 2
@@ -92,7 +92,7 @@ Observation: Version 2 of application should be displayed
 ```
 
 ## Step-06: Do two more helm upgrades - For practice purpose
-```t
+```bash
 # Helm Upgrade to 3.0.0
 helm upgrade myapp1 kalyan-repo/myapp1 --set "image.tag=3.0.0"
 
@@ -110,7 +110,7 @@ http://localhost:31231
 
 ## Step-07: Helm History
 - History prints historical revisions for a given release.
-```t
+```bash
 # helm history
 helm history RELEASE_NAME
 helm history myapp1
@@ -118,7 +118,7 @@ helm history myapp1
 
 ## Step-08: Helm Status
 - This command shows the status of a named release. 
-```t
+```bash
 # Helm Status
 helm status RELEASE_NAME
 helm status myapp1
@@ -135,7 +135,7 @@ helm status myapp1 --revision 2
 ```
 
 ## Step-09: Uninstall Helm Release
-```t
+```bash
 # Uninstall Helm Release
 helm uninstall myapp1
 ```

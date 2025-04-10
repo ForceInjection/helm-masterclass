@@ -1,12 +1,15 @@
 # Helm Development - Flow Control If-Else with OR Function
 
 ## Step-01: Introduction
--  We can use `if/else` for creating conditional blocks in Helm Templates
-- **eq:** For templates, the operators (eq, ne, lt, gt, and, or and so on) are all implemented as functions. 
+
+- We can use `if/else` for creating conditional blocks in Helm Templates
+- **eq:** For templates, the operators (eq, ne, lt, gt, and, or and so on) are all implemented as functions.
 - In pipelines, operations can be grouped with parentheses ((, and )).
 - [Additional Reference: Operators are functions](https://helm.sh/docs/chart_template_guide/functions_and_pipelines/#operators-are-functions)
+
 ### IF-ELSE Syntax
-```t
+
+```bash
 {{ if PIPELINE }}
   # Do something
 {{ else if OTHER PIPELINE }}
@@ -17,21 +20,25 @@
 ```
 
 ## Step-02: Review values.yaml
+
 ```yaml
 # If, else if, else
 myapp:
   env: prod
 ```
 
-## Step-03: Logic and Flow Control Function: and 
+## Step-03: Logic and Flow Control Function: and
+
 - [Logic and Flow Control Functions](https://helm.sh/docs/chart_template_guide/function_list/#logic-and-flow-control-functions)
 - **or:**  Returns the boolean OR of two or more arguments (the first non-empty argument, or the last argument).
-```t
+
+```bash
 # and Syntax
 or .Arg1 .Arg2
 
 ```
-## Step-04: Implement if-else for replicas with OR 
+
+## Step-04: Implement if-else for replicas with OR
 
 ```yaml
 apiVersion: apps/v1
@@ -64,7 +71,8 @@ spec:
 ```
 
 ## Step-05: Verify if-else
-```t
+
+```bash
 # Change to Chart Directory
 cd helmbasics
 

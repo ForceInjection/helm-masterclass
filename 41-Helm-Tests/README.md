@@ -1,10 +1,12 @@
 # Helm Tests
 
 ## Step-01: Introduction
+
 - helm test command
 
 ## Step-02: Create Helm Chart and Release
-```t
+
+```bash
 # Helm Create
 helm create mydemoapp
 
@@ -16,8 +18,10 @@ helm list
 ```
 
 ## Step-03: Review Helm Test Yaml file
+
 - **File Location:** mydemoapp/templates/test/test-connection.yaml
 - Primarily review  test hook: `"helm.sh/hook": test`
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -37,7 +41,8 @@ spec:
 ```
 
 ## Step-04: Helm Test and Verify
-```t
+
+```bash
 # List Kubernetes Pods
 kubectl get pods
 
@@ -64,7 +69,8 @@ Phase:          Succeeded
 ```
 
 ## Step-05: Uninstall Helm Release
-```t
+
+```bash
 # Uninstall Helm Release
 helm uninstall myapp101
 

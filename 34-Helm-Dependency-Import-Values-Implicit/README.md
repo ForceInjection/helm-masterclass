@@ -1,11 +1,14 @@
 # Helm Dependency - Import Values Implicit
 
 ## Step-01: Introduction
+
 - Implement Import Values Implicit usecase
 
 ## Step-02: Review / Update parentchart Chart.yaml
+
 - **File Location:** parentchart/Chart.yaml
 - Define `import-values`
+
 ```yaml
 apiVersion: v2
 name: parentchart
@@ -35,8 +38,10 @@ dependencies:
 ```
 
 ## Step-03: Review / Update parentchart configmap.yaml
+
 - **File Location:** parentchart/templates/configmap.yaml
 - Use imported values in `configmap.yaml`
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -49,9 +54,9 @@ data:
   imageRepository: {{ .Values.mychart2image.repository }}
 ```
 
+## Step-04: Import Values Implicit: Deploy and Verify
 
-## Step-04: Import Values Implicit: Deploy and Verify 
-```t
+```bash
 # Change to Chart Directory
 cd parentchart
 
@@ -80,8 +85,9 @@ We should see the data exported from parentchart/charts/mychart2/values.yaml imp
 helm uninstall myapp1 
 ```
 
-## Step-06: Test when mychart2 is disabled 
-```t
+## Step-06: Test when mychart2 is disabled
+
+```bash
 # Change to Chart Directory
 cd parentchart
 

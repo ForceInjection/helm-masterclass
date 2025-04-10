@@ -1,9 +1,12 @@
 # Helm Sub Charts - Use Global Values in Sub Charts
+
 ## Step-01: Introduction
+
 - Managing Dependencies manually
 - Define Global Values
 
 ## Step-02: Review Chart.yaml
+
 ```yaml
 apiVersion: v2
 name: parentchart
@@ -26,10 +29,12 @@ dependencies:
     - backend
 ```
 
-## Step-03: Pull charts using helm pull command 
+## Step-03: Pull charts using helm pull command
+
 - We are going to pull the charts to `parentchart/charts` directory using `helm pull` command
 - Also ensure that those packages are untarred or unzipped
-```t
+
+```bash
 # Change Directory
 cd parentchart/charts
 
@@ -44,7 +49,8 @@ rm -rf *.tgz
 ```
 
 ## Step-04: To Build or Package Sub Charts
-```t
+
+```bash
 # Change to Chart Directory
 cd parentchart
 
@@ -53,9 +59,9 @@ helm dependency list
 
 ## Sample Outout
 Kalyans-MacBook-Pro:parentchart kalyan$ helm dependency list
-NAME    	VERSION	REPOSITORY             	STATUS  
-mychart4	0.1.0  	file://charts/mychart4 	unpacked
-mychart2	0.4.0  	file://charts/mychart2	unpacked
+NAME     VERSION REPOSITORY              STATUS  
+mychart4 0.1.0   file://charts/mychart4  unpacked
+mychart2 0.4.0   file://charts/mychart2 unpacked
 
 # Helm Dependency Update / Build
 helm dependency update
@@ -66,9 +72,9 @@ Observation: you should find *.tgz files for both charts
 
 > # helm dep list should show status as OK
 Kalyans-MacBook-Pro:parentchart kalyan$ helm dep list
-NAME    	VERSION	REPOSITORY            	STATUS
-mychart4	0.1.0  	file://charts/mychart4	ok    
-mychart2	0.4.0  	file://charts/mychart2	ok  
+NAME     VERSION REPOSITORY             STATUS
+mychart4 0.1.0   file://charts/mychart4 ok    
+mychart2 0.4.0   file://charts/mychart2 ok  
 
 
 # Delete subchart tgz files
@@ -76,7 +82,9 @@ rm charts/*.tgz
 ```
 
 ## Step-05: Define Global value in Parent Chart values.yaml
+
 - **File:** parentchart/values.yaml
+
 ```yaml
 # Define Global Values
 global:
@@ -84,15 +92,18 @@ global:
 ```
 
 ## Step-06: Update Parent Chart and Sub Chart deployment.yaml
+
 - **File:** parentchart/templates/deployment.yaml
 - **File:** charts/mychart4/templates/deployment.yaml
 - **File:** charts/mychart2/templates/deployment.yaml
+
 ```yaml
 replicas: {{ .Values.global.replicaCount }}
 ```
 
 ## Step-07: Test Global Values
-```t
+
+```bash
 # Change to Chart Directory
 cd parentchart
 

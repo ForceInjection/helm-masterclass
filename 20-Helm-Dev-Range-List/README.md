@@ -1,14 +1,17 @@
 # Helm Development - Flow Control Range Action with List
 
 ## Step-01: Introduction
+
 - Implement `Range` with `List of Values` from `values.yaml`
 - Implement on how to call `Helm Variable` in Range loop
- 
+
 ## Step-02: Implement "Range Action" with "List of Values"
+
 - **Source Location:** backupfiles/namespace.yaml
 - **Destication Location:** helmbasics/templates/namespace.yaml
 - **File Name:** namespace.yaml
-```t
+
+```bash
 # values.yaml
 # Flow Control: Range with List
 namespaces:
@@ -51,12 +54,13 @@ We should see all the namespaces created
 helm uninstall myapp1
 ```
 
-
 ## Step-03: Implement "Range Action" with "List of Values" with Variables
+
 - **Source Location:** backupfiles/namespace-with-variable.yaml
 - **Destication Location:** helmbasics/templates/namespace-with-variable.yaml
 - **File Name:** namespace-with-variable.yaml
-```t
+
+```bash
 # values.yaml
 # Flow Control: Range with List and Helm Variables
 environments:

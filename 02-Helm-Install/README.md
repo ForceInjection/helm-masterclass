@@ -13,7 +13,7 @@
 ## Step-02: List, Add and Search Helm Repository
 - [Bitnami Applications packaged using Helm](https://bitnami.com/stacks/helm)
 - [Search for Helm Charts at Artifacthub.io](https://artifacthub.io/)
-```t
+```bash
 # List Helm Repositories
 helm repo list
 
@@ -33,7 +33,7 @@ helm search repo wildfly
 
 ## Step-03: Install Helm Chart
 - Installs the Helm Chart
-```t
+```bash
 # Update Helm Repo
 helm repo update  # Make sure we get the latest list of charts
 
@@ -44,7 +44,7 @@ helm install mynginx mybitnami/nginx
 
 ## Step-04: List Helm Releases
 - This command lists all of the releases for a specified namespace
-```t
+```bash
 # List Helm Releases (Default Table Output)
 helm list 
 helm ls
@@ -61,7 +61,7 @@ helm list -n default
 ```
 
 ## Step-05: List Kubernetes Resources
-```t
+```bash
 # List Kubernetes Pods
 kubectl get pods
 
@@ -78,7 +78,7 @@ curl http://localhost:80
 curl http://127.0.0.1:80
 ```
 ## Step-06: Uninstall Helm Release - NO FLAGS
-```t
+```bash
 # List Helm Releases
 helm ls
 

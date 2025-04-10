@@ -1,24 +1,28 @@
 # Helm Template Functions and Pipelines
 
 ## Step-01: Introduction
+
 1. Template Actions `{{ }}`
 2. Action Elements `{{ .Release.Name }}`
 3. Quote Function
-4. Pipeline 
+4. Pipeline
 5. default Function
 6. lower function
 7. Controlling White Spaces `{{-  -}}`
-7. indent function
-8. nindent function
-9. toYaml
+8. indent function
+9. nindent function
+10. toYaml
 
 ## Step-02: Template Action "{{ }}"
+
 - Anything in between Template Action `{{ .Chart.Name }}` is called Action Element
 - Anything in between Template Action `{{ .Chart.Name }}` will be rendered by helm template engine and replace necessary values
 - Anything outside of the template action will be printed as it is.
 - Action elements defined inside the `{{ }}` will help us to retrieve data from other sources (example: `.Chart.Name`).
+
 ### Step-02-01: Valid Action Element
-```t
+
+```bash
 # deployment.yaml file
 apiVersion: apps/v1
 kind: Deployment
@@ -34,8 +38,10 @@ helm template myapp101 .
 1. helm template command helps us to check the output of the chart in fully rendered Kubernetes resource templates. 
 2. This will be very helpful when we are developing a new chart, making changes to the chart templates, for debugging etc.
 ```
-### Step-02-02: Invalid Action Element 
-```t
+
+### Step-02-02: Invalid Action Element
+
+```bash
 # deployment.yaml file
 apiVersion: apps/v1
 kind: Deployment
@@ -55,7 +61,8 @@ Error: parse error at (helmbasics/templates/deployment.yaml:10): function "somet
 ```
 
 ## Step-03: Template Function: quote
-```t
+
+```bash
 # Add Quote Function 
   annotations:    
     app.kubernetes.io/managed-by: {{ .Release.Service }}
@@ -70,9 +77,11 @@ helm template myapp101 .
 ```
 
 ## Step-04: Pipeline
-- Pipelines are an efficient way of getting several things done in sequence. 
-- Inverting the order is a common practice in templates (.val | quote ) 
-```t
+
+- Pipelines are an efficient way of getting several things done in sequence.
+- Inverting the order is a common practice in templates (.val | quote )
+
+```bash
 # Add Quote Function with Pipeline
   annotations:    
     app.kubernetes.io/managed-by: {{ .Release.Service }}
@@ -89,8 +98,10 @@ helm template myapp101 .
 ```
 
 ## Step-05: Template Function: default and lower
+
 - [default function](https://helm.sh/docs/chart_template_guide/function_list/#default)
-```t
+
+```bash
 # values.yaml
 releaseName: "newrelease101"
 replicaCount: 3
@@ -115,8 +126,10 @@ helm template myapp101 .
 ```
 
 ## Step-06: Controlling Whitespaces
+
 - **{{- .Chart.name }}:**  If a hyphen is added before the statement, `{{- .Chart.name }}` then the leading whitespace will be ignored during the rendering
 - **{{ .Chart.name -}}:** If a hyphen is added after the statement, `{{ .Chart.name -}}` then the trailing whitespace will be ignored during the rendering
+
 ```yaml
   annotations:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
@@ -138,8 +151,8 @@ cd helmbasics
 helm template myapp101 .    
 ```
 
-
 ## Step-07: indent and nindent functions
+
 - **indent:** The [indent function](https://helm.sh/docs/chart_template_guide/function_list/#indent) indents every line in a given string to the specified indent width. This is useful when aligning multi-line strings:
 - **nindent:** The [nindent function](https://helm.sh/docs/chart_template_guide/function_list/#nindent) is the same as the indent function, but prepends a new line to the beginning of the string.
 
@@ -169,12 +182,13 @@ cd helmbasics
 helm template myapp101 .    
 ```
 
+## Step-08: Template Function: toYaml
 
-## Step-08: Template Function: toYaml 
-- **toYaml:** 
+- **toYaml:**
 - We can use [toYaml function](https://helm.sh/docs/chart_template_guide/function_list/#type-conversion-functions) inside the helm template actions to convert an object into YAML.
-- Convert list, slice, array, dict, or object to indented yaml. 
-```t
+- Convert list, slice, array, dict, or object to indented yaml.
+
+```bash
 # values.yaml
 # Resources for testing Template Function: toYaml 
 resources: 

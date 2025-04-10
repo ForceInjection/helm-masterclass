@@ -1,25 +1,32 @@
 # Helm Charts Sign and Verify
 
 ## Step-01: Introduction
+
 - [GnuPG](https://gnupg.org/)
 - Generating Private/Public Keys with gpg
-- Sign the Helm Package 
+- Sign the Helm Package
 - Export public key
 - Verify Helm Package using Public Key
 
-## Step-02: Install gnupg 
+## Step-02: Install gnupg
+
 ### Step-02-01: Install gnupg on MacOS
+
 - [Install gnupg using homebrew](https://formulae.brew.sh/formula/gnupg)
-```t
+
+```bash
 # Install gnupg on MacOS
 brew install gnupg
 
 # Verify version
 gpg --version
 ```
+
 ### Step-02-02: Install gnupg on WindowsOS
+
 - [Install gnupg on windows using chocolatey](https://community.chocolatey.org/packages/gnupg#individual)
-```t
+
+```bash
 # Install gnupg on WindowsOS
 choco install gnupg
 
@@ -28,7 +35,8 @@ gpg --version
 ```
 
 ## Step-03: Generate Private/Public Key Pairs with gpg
-```t
+
+```bash
 # List Keys
 gpg --list-keys
 
@@ -68,7 +76,8 @@ gpg --export-secret-keys > private-key/helmsigndemo1-secring-privatekey.gpg
 ```
 
 ## Step-03: Signing Helm Charts
-```t
+
+```bash
 # Change Directory
 cd myhelmcharts
 1. we will have the "myfirstchart" helm chart folder
@@ -83,10 +92,12 @@ ls -lrta
 ```
 
 ## Step-04: Export Public Key
+
 - Verify integrity of chart using public key
-- In real-world scenario, these public keys will be published on keyservers (keyserver.ubuntu.com, keyserver.openpgp.com) 
+- In real-world scenario, these public keys will be published on keyservers (keyserver.ubuntu.com, keyserver.openpgp.com)
 - We should download these public keys to verify the integrity of the chart.
-```t
+
+```bash
 # Change to Directory 
 cd myhelmcharts
 
@@ -98,7 +109,8 @@ ls public-key/helmsigndemo1-publickey.gpg
 ```
 
 ## Step-05: Verify Helm Package using Public Key
-```t
+
+```bash
 # Change Directory
 cd myhelmcharts
 
@@ -113,9 +125,9 @@ Chart Hash Verified: sha256:099c8a0cd0609f0e252bd63856ea1998c55e4af1b587c435d4b7
 Kalyans-Mac-mini:myhelmcharts kalyanreddy$ 
 ```
 
-
 ## Step-06: Verify Charts during helm install and Upgrade - Positive Test
-```t
+
+```bash
 # Change Directory
 cd myhelmcharts
 
@@ -138,9 +150,9 @@ helm upgrade myapp1 myfirstchart-0.1.0.tgz --verify --keyring public-key/helmsig
 helm uninstall myapp1
 ```
 
-
 ## Step-07: Verify Charts during helm install and Upgrade - Negative Test
-```t
+
+```bash
 # Change Directory
 cd myhelmcharts
 

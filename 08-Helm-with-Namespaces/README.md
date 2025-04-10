@@ -7,7 +7,7 @@
 - In addition, we can also create a namespace during `helm install` using flags `--namespace`  `--create-namespace` 
 
 ## Step-02: Install Helm Release by creating Kubernetes Namespace dev
-```t
+```bash
 # List Kubernetes Namespaces 
 kubectl get ns
 
@@ -42,7 +42,7 @@ http://localhost:31232
 ```
 
 ## Step-03: Run helm upgrade for resources present in dev namespace
-```t
+```bash
 # Helm Upgrade
 helm upgrade dev101 stacksimplify/mychart2 --version "0.2.0" --namespace dev 
 or
@@ -61,7 +61,7 @@ http://localhost:31232
 ```
 
 ## Step-04: Uninstall Helm Release from dev Namespace
-```t
+```bash
 # Uninstall Helm Releas
 helm uninstall dev101 --namespace dev
 helm uninstall dev101 -n dev

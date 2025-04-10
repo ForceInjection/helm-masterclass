@@ -5,7 +5,7 @@
 - **Important Note:** This demo is in continuation to previous release demo
 
 ## Step-02: Uninstall Helm Release with --keep-history Flag
-```t
+```bash
 # List Helm Releases
 helm list
 helm list --superseded
@@ -31,7 +31,7 @@ Observation:
 ```
 
 ## Step-03: Rollback Uninstalled Release
-```t
+```bash
 # List Release History
 helm history myapp101
 
@@ -55,7 +55,7 @@ http://localhost:31232
 ```
 
 ## Step-04: Uninstall Helm Release - NO FLAGS
-```t
+```bash
 # List Helm Releases
 helm list
 
@@ -78,7 +78,7 @@ helm history myapp101
 ```
 
 ## Step-05: Rollback Uninstalled Release
-```t
+```bash
 # Rollback Helm Uninstalled Release
 helm rollback <RELEASE> [REVISION] [flags]
 helm rollback myapp101 1 

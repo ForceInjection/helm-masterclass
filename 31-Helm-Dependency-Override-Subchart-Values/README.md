@@ -1,10 +1,11 @@
 # Helm Dependency - Override Subchart Values
 
 ## Step-01: Introduction
+
 - Override subchart(child chart) values from parent chart
 
-
 ## Step-02: Review Chart.yaml
+
 ```yaml
 apiVersion: v2
 name: parentchart
@@ -24,7 +25,8 @@ dependencies:
 ```
 
 ## Step-03: Review mychart4, mychart2 subchart replicaCount value
-```t
+
+```bash
 # Change Directory
 cd 31-Helm-Dependency-Override-Subchart-Values
 
@@ -36,7 +38,9 @@ helm show values parentchart/charts/mychart2-0.4.0.tgz
 ```
 
 ## Step-04: Update values.yaml
+
 - Override `replicaCount` value in subcharts from parent chart `values.yaml`
+
 ```yaml
 # Values for Child Charts with Chart Name
 mychart4:
@@ -47,8 +51,9 @@ mychart2:
   replicaCount: 3
 ```
 
-## Step-05: Deploy and Test 
-```t
+## Step-05: Deploy and Test
+
+```bash
 # Helm Dependency Update
 helm dependency update parentchart/
 or
@@ -83,7 +88,8 @@ mychart2: http://localhost:31232
 ```
 
 ## Step-06: Uninstall Helm Release
-```t
+
+```bash
 # Helm Uninstall
 helm uninstall myapp1
 ```

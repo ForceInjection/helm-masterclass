@@ -1,11 +1,14 @@
 # Helm Dependency - Using Tags
 
 ## Step-01: Introduction
+
 - Instead of using `condition` we are going to use `tags`
 - If we have more amount of subcharts that need to be divided in to groups then we need to use `tags` instead of `condition`
 
- ## Step-02: Review Chart.yaml
- - Instead of using `condition` we are going to use `tags`
+## Step-02: Review Chart.yaml
+
+- Instead of using `condition` we are going to use `tags`
+
 ```yaml
 apiVersion: v2
 name: parentchart
@@ -44,8 +47,9 @@ dependencies:
     - backend
  ```
 
- ## Step-03: Usecase-1: Both frontend and backend false
- ```t
+## Step-03: Usecase-1: Both frontend and backend false
+
+ ```bash
  # Usecase-1: Both frontend and backend false
  # values.yaml
 tags:
@@ -61,9 +65,9 @@ Observation:
 1.  We should see only 1 pod (parentchart) pod running
 ```
 
+## Step-04: Usecase-2: Backend True and Frontend false
 
- ## Step-04: Usecase-2: Backend True and Frontend false
- ```t
+ ```bash
 # Helm Install
 helm upgrade myapp1 parentchart/ --atomic --set tags.backend=true
 
@@ -73,8 +77,9 @@ Observation:
 1.  We should see 2 pods (parentchart and childchart2) running
 ```
 
- ## Step-05: Usecase-2: Backend True and Frontend True
- ```t
+## Step-05: Usecase-2: Backend True and Frontend True
+
+ ```bash
 # Helm Install
 helm upgrade myapp1 parentchart/ --atomic --set tags.backend=true --set tags.frontend=true
 
@@ -85,7 +90,8 @@ Observation:
 ```
 
 ## Step-06: Uninstall Helm Charts
-```t
+
+```bash
 # Helm Uninstall
 helm uninstall myapp1
 ```

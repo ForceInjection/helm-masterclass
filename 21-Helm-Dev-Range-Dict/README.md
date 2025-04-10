@@ -1,13 +1,16 @@
 # Helm Development - Flow Control Range with Dictionary
 
 ## Step-01: Introduction
+
 - Implement Range with Map or Dictionary from `values.yaml`
 - Implement on how to call `Helm Variable` in Range loop
 
-## Step-02: Range with Key Value pairs or Map or Dictionary 
+## Step-02: Range with Key Value pairs or Map or Dictionary
+
 - **Source Location:** backupfiles/namespace.yaml
 - **Destication Location:** helmbasics/templates/namespace.yaml
 - **File Name:** namespace.yaml
+
 ```yaml
 # values.yaml
 # Range with Dictionary
@@ -61,11 +64,12 @@ We should see configmap with key value pairs
 helm uninstall myapp1
 ```
 
-
 ## Step-03: Range - Access Builtin Object from Root inside Range using Helm  Variable
+
 - **Source Location:** backupfiles/namespace-with-variable.yaml
 - **Destication Location:** helmbasics/templates/namespace-with-variable.yaml
 - **File Name:** namespace-with-variable.yaml
+
 ```yaml
 # values.yaml
 # Range with Dictionary
@@ -116,4 +120,3 @@ We should see configmap with key value pairs
 # Uninstall Helm Release
 helm uninstall myapp1
 ```
-

@@ -1,12 +1,14 @@
 # Helm Dependency - Condition with Alias
 
 ## Step-01: Introduction
+
 - Implement `Condition` for enabling or disabling Sub Charts or Child Charts
 - Override subchart(child chart) values from parent chart
 
-
 ## Step-02: Chart.yaml
+
 - If we have multiple dependencies with same chart name `mychart4` with different alias names like `childchart4dev` and `childchart4qa` in this case we need to define values.yaml with `alias names` for enabling or disabling those sub charts
+
 ```yaml
 apiVersion: v2
 name: parentchart
@@ -33,7 +35,9 @@ dependencies:
 ```
 
 ## Step-03: Update values.yaml
+
 - Here only `childchart4qa` so only k8s resources for that chart should created in addition to parent chart resources
+
 ```yaml
 # Values for Child Charts with Alias Name of Chart
 childchart4dev:
@@ -44,9 +48,9 @@ childchart2:
   enabled: false 
 ```
 
+## Step-04: Deploy and Test
 
-## Step-04: Deploy and Test 
-```t
+```bash
 # Helm Dependency Update
 helm dependency update parentchart/
 or
@@ -78,7 +82,8 @@ childchart4qa: http://localhost:<port-from-get-svc-output>
 ```
 
 ## Step-05: Uninstall Helm Release
-```t
+
+```bash
 # Helm Uninstall
 helm uninstall myapp1
 ```

@@ -1,11 +1,13 @@
 # Helm Dependency - Alias
 
 ## Step-01: Introduction
+
 - Condition
 - Alias
 - Override subchart(child chart) values from parent chart
 
 ## Step-02: Update Parentchart CIP to NodePort Service
+
 ```yaml
 # values.yaml
 service:
@@ -14,7 +16,9 @@ service:
 ```
 
 ## Step-03: Chart.yaml
+
 - Understand the importance of `alias` when defining dependencies
+
 ```yaml
 apiVersion: v2
 name: parentchart
@@ -38,7 +42,8 @@ dependencies:
 ```
 
 ## Step-04: Deploy and Test
-```t
+
+```bash
 # Helm Dependency Update
 helm dependency update parentchart/
 or
@@ -70,7 +75,8 @@ mychart2: http://localhost:31232
 ```
 
 ## Step-05: Uninstall Helm Release
-```t
+
+```bash
 # Helm Uninstall
 helm uninstall myapp1
 ```

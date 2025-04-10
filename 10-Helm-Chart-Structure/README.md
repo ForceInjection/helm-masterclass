@@ -1,10 +1,12 @@
 # Understand Helm Chart Folder Structure
 
 ## Step-01: Introduction
+
 - Understand Helm Chart Folder Structure
 
 ## Step-02: Helm Create Chart
-```t
+
+```bash
 # Helm Create Chart
 helm create <CHART-NAME>
 helm create basechart
@@ -14,7 +16,8 @@ Observation:
 ```
 
 ## Step-03: Helm Chart Structure
-```
+
+```text
 └── basechart
     ├── .helmignore
     ├── Chart.yaml
@@ -33,4 +36,3 @@ Observation:
     │       └── test-connection.yaml
     └── values.yaml
 ```
-

@@ -1,17 +1,21 @@
 # Install Docker Desktop and HELM CLI
 
 ## Step-01: Introduction
+
 1. Install Docker Desktop
 2. Install Helm CLI on local desktop
 
 ## Step-02: Docker Desktop - Pricing, SignUp, Download
+
 - [Docker Desktop Pricing](https://www.docker.com/pricing/)
 - [SignUp Docker Hub](https://hub.docker.com/)
 - [Download Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
-## Step-03: Install Docker Desktop 
-### Step-03-01: MACOS: Install Docker Desktop 
-```t
+## Step-03: Install Docker Desktop
+
+### Step-03-01: MACOS: Install Docker Desktop
+
+```bash
 # Install Docker Desktop
 Copy Docker dmg to Applications folder
 
@@ -21,8 +25,10 @@ https://hub.docker.com
 # Signin Docker Desktop 
 Open Docker Desktop and SignIn to Docker Hub
 ```
-### Step-03-02: WINDOWS: Install Docker Desktop 
-```t
+
+### Step-03-02: WINDOWS: Install Docker Desktop
+
+```bash
 # Download Docker Desktop
 https://www.docker.com/products/docker-desktop/
 
@@ -40,8 +46,10 @@ C:\Program Files\Docker\Docker\Resources\bin
 ```
 
 ## Step-04: Enable Kubernetes Cluster
+
 - **Additional Reference:** [Docker Desktop - k8s Cluster](https://docs.docker.com/desktop/kubernetes/)
-```t
+
+```bash
 # Enable Kubernetes Cluster
 - Go to Settings -> Enable Kubernetes
 - Apply and Restart
@@ -50,7 +58,8 @@ C:\Program Files\Docker\Docker\Resources\bin
 ```
 
 ## Step-05: Configure kubeconfig for kubectl for Docker Desktop k8s Cluster
-```t
+
+```bash
 # Verify if kubectl installed (Docker desktop should install kubectl automatically)
 which kubectl
 
@@ -73,9 +82,11 @@ kubectl get nodes
 ```
 
 ## Step-06: Verify if our k8s Cluster is functional with a Sample Application
+
 - [StackSimplify Docker Images](https://github.com/stacksimplify?tab=packages)
 - [Docker Image used in this Demo](https://github.com/users/stacksimplify/packages/container/package/kubenginxhelm)
-```t
+
+```bash
 # Review Kubernetes Manifests
 Folder: kube-manifests
 deployment.yaml
@@ -108,8 +119,10 @@ kubectl get deploy
 ```
 
 ## Step-07: Install Helm using Package Managers
+
 - [Install Helm](https://helm.sh/docs/intro/install/)
-```t
+
+```bash
 # MacOS
 brew install helm
 
@@ -125,8 +138,10 @@ helm version
 # Helm Environment variables
 helm env
 ```
+
 ## Step-08: Windows Install Helm CLI using package
-```t
+
+```bash
 # Helm Releases - Download Windows amd64
 https://github.com/helm/helm/releases
 
@@ -141,7 +156,8 @@ C:\helm\windows-amd64
 ```
 
 ## Additional Optional Step: Install kubectl (if not installed by default)
-```t
+
+```bash
 # Download & Install kubectl
 https://kubernetes.io/docs/tasks/tools/
 MacOS kubectl Install: https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/

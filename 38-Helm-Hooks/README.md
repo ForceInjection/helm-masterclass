@@ -1,17 +1,22 @@
 # Helm Hooks
 
 ## Step-01: Introduction
+
 - Understand Helm Hooks
 
-## Step-02: Create a simple Chart from Starter Chart 
+## Step-02: Create a simple Chart from Starter Chart
+
 - **Important Note:** This step is optional for you because you will have all the Chart files and folders ready for you to implement hooksdemo1 in this respective section
-```t
+
+```bash
 # Create Helm Chart from starter chart
 helm create hooksdemo1 --starter=mystarterchart
 ```
 
 ## Step-03: Create/Review pre-install Hook
+
 - **File Location:** templates/preinstall-hookpod.yaml
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -28,9 +33,10 @@ spec:
       command:  ['sh', '-c', 'echo Pre-install hook Pod is running && sleep 15']      
 ```
 
-
 ## Step-04: Create/Review pre-upgrade hook
+
 - **File Location:** templates/preupgrade-hookpod.yaml
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -48,7 +54,9 @@ spec:
 ```
 
 ## Step-05: Create/Review post-delete hook
+
 - **File Location:** templates/postdelete-hookpod.yaml
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -66,7 +74,8 @@ spec:
 ```
 
 ## Step-06: Test Helm Hook: pre-install
-```t
+
+```bash
 # Change Directory (In Helm Chart Folder)
 cd hooksdemo1
 
@@ -96,11 +105,13 @@ Observation: We should see V1 version of application
 ```
 
 ## Step-07: Hooks and the Release Lifecycle
+
 1. Lets say for `helm install` lifecycle we have defined two hooks `pre-install` and `post-install`, lets understand what happens
 2. Discuss by going to documentation [Hooks and the Release Lifecycle](https://helm.sh/docs/topics/charts_hooks/#hooks-and-the-release-lifecycle)
 
 ## Step-08: Test Helm Hook: pre-upgrade
-```t
+
+```bash
 # Change Directory (In Helm Chart Folder)
 cd hooksdemo1
 
@@ -128,7 +139,8 @@ Observation: We should see V2 version of Application
 ```
 
 ## Step-09: Test Helm Hook: post-delete
-```t
+
+```bash
 # Change Directory (In Helm Chart Folder)
 cd hooksdemo1
 
@@ -144,6 +156,7 @@ Observation:
 ```
 
 ## Step-10: Hook resources are not managed with corresponding releases
-1. The resources that a hook creates are currently not tracked or managed as part of the release. 
+
+1. The resources that a hook creates are currently not tracked or managed as part of the release.
 2. Once Helm verifies that the hook has reached its ready state, it will leave the hook resource alone.
-3. In short, `helm uninstall` will not delete hook resources. 
+3. In short, `helm uninstall` will not delete hook resources.

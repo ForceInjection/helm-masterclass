@@ -1,14 +1,17 @@
 # Helm Plugins
 
 ## Step-01: Introduction
+
 - Install Helm Plugins
 - [Helm Starter Plugin](https://github.com/salesforce/helm-starter.git)
 - [Helm Dashboard Plugin](https://github.com/komodorio/helm-dashboard.git)
 
 ## Step-02: Install Helm Plugin
+
 - [Helm Starter Plugin](https://github.com/salesforce/helm-starter)
 - [Review Helm Starter Plugin plugin.yaml](https://github.com/salesforce/helm-starter/blob/master/plugin.yaml)
-```t
+
+```bash
 # List Helm Plugins
 helm plugin list
 
@@ -30,7 +33,8 @@ ls
 ```
 
 ## Step-03: Play with Helm Starter Plugin
-```t
+
+```bash
 # List Helm Starters
 helm plugin list
 helm <PLUGIN-NAME> <PLUGIN-SUB-COMMAND-AS-PER-PLUGIN>
@@ -44,7 +48,8 @@ helm starter list
 ```
 
 ## Step-04: Play with Helm Plugin Commands
-```t
+
+```bash
 # Update Helm Plugin
 helm plugin list
 helm plugin update PLUGIN-NAME
@@ -58,7 +63,8 @@ helm plugin list
 ```
 
 ## Step-05: Install Couple of Releases
-```t
+
+```bash
 # Helm Rep Add
 helm repo list
 helm repo add stacksimplify https://stacksimplify.github.io/helm-charts/
@@ -77,11 +83,12 @@ helm list
 ```
 
 ## Step-06: (Optional) Lets install Helm Dashboard Plugin
+
 - [Helm Dashboard Plugin Git Repo](https://github.com/komodorio/helm-dashboard)
 - [Helm Dashboard Plugin from Artifacthub](https://artifacthub.io/packages/helm-plugin/helm-dashboard/dashboard)
 - [Review Helm Dashboard Plugin plugin.yaml](https://github.com/komodorio/helm-dashboard/blob/main/plugin.yaml)
 
-```t
+```bash
 # List Helm Plugins
 helm plugin list
 
@@ -106,7 +113,8 @@ helm dashboard
 ```
 
 ## Step-07: Uninstall Releases
-```t
+
+```bash
 # Helm Uninstall
 helm uninstall dev101
 helm uninstall dev102

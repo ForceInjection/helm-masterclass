@@ -1,11 +1,13 @@
 # Build Helm Plugin
 
 ## Step-01: Introduction
+
 - [Building Helm Plugins](https://helm.sh/docs/topics/plugins/#building-plugins)
 - We will build 3 simple plugins and test
 
 ## Step-02: Create myplugin1 with env command -  Install and Verify
-```t
+
+```bash
 # myplugin1
 name: "myplugin1"
 version: "0.1.0"
@@ -32,7 +34,8 @@ Prints Helm environment variables
 ```
 
 ## Step-03: Create myplugin2 with platformCommand -  Install and Verify
-```t
+
+```bash
 # myplugin2
 name: "myplugin2"
 version: "0.1.0"
@@ -66,8 +69,10 @@ helm myplugin2
 # Observation
 Should execute the command from Default command section because we are running this on MacOS desktop which is not present in "platformCommand"
 ```
+
 ## Step-04: Create myplugin3 with shell script - Install and Verify
-```t
+
+```bash
 # myplugin3
 name: "myplugin3"
 version: "0.1.0"
@@ -97,12 +102,11 @@ We will see "app.sh" executed successfully
 ```
 
 ## Step-05: Uninstall Plugins
-```t
+
+```bash
 # Uninstall Helm Plugins
 helm plugin uninstall <PLUGIN-NAME>
 helm plugin uninstall myplugin1
 helm plugin uninstall myplugin2
 helm plugin uninstall myplugin3
 ```
-
-

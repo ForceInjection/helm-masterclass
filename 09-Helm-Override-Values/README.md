@@ -19,7 +19,7 @@
 
 ### Step-02-02: Learn about --dry-run and --debug flags for helm install command
 - Install Helm Chart by overriding NodePort 31231 with 31240
-```t
+```bash
 # Helm Install with --dry-run command
 helm install myapp901 stacksimplify/mychart1 --set service.nodePort=31240 --dry-run 
 
@@ -50,7 +50,7 @@ service:
 ```
 
 ### Step-02-03: helm install with --set and test
-```t
+```bash
 # Helm Install 
 helm install myapp901 stacksimplify/mychart1 --set service.nodePort=31240 
 
@@ -85,7 +85,7 @@ service:
 
 ## Step-04: Override NodePort 31240 with -f myvalues.yaml with 
 - We can either `-f  myvalues.yaml` or `--values myvalues.yaml`.  Both are valid inputs
-```t
+```bash
 # Verify if myvalues.yaml
 cd 09-Helm-Override-Values
 cat myvalues.yaml
@@ -110,7 +110,7 @@ Observation:
 
 ## Step-05: helm get values command
 - **helm get values:** This command downloads a values file for a given release
-```t
+```bash
 # helm get values
 helm get values RELEASE_NAME
 helm get values myapp901
@@ -148,7 +148,7 @@ service:
 
 ## Step-06: helm get manifest command 
 - **helm get manifest:** This command fetches the generated manifest for a given release.
-```t
+```bash
 # helm get manifest
 helm get manifest RELEASE-NAME
 helm get manifest myapp901
@@ -162,14 +162,14 @@ helm get manifest myapp901 --revision 1
 - **helm get all:** This command prints a human readable collection of information about the notes, hooks, supplied values, and generated manifest file of the given release.
 - This is a good way to see what templates are installed on the kubernetes cluster server.
 - **helm get notes and helm get hooks:** These two commmands we will explore when we are discussing about helm chart development. 
-```t
+```bash
 # helm get all
 helm get all RELEASE-NAME
 helm get all myapp901
 ```
 
 ## Step-08: Uninstall Helm Release
-```t
+```bash
 # Uninstall Helm Release
 helm uninstall myapp901
 
@@ -184,7 +184,7 @@ helm list
 
 ## Step-10: Deleting a default Key by passing null
 - If you need to delete a key from the default values, you may override the value of the key to be null, in which case Helm will remove the key from the overridden values merge.
-```t
+```bash
 # Release: myapp901
 helm install myapp901 stacksimplify/mychart1 --atomic
 helm list

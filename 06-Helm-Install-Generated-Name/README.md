@@ -6,7 +6,7 @@
 - When we are implementing DevOps Pipelines, if we want to generate the names of our releases without throwing duplicate release errors we can use this setting. 
 
 ## Step-02: Install helm with --generate-name flag
-```t
+```bash
 # Install helm with --generate-name flag
 helm install <repo_name_in_your_local_desktop/chart_name> --generate-name
 helm install stacksimplify/mychart1 --generate-name
@@ -25,7 +25,7 @@ helm status mychart1-1689683948 --show-resources
 http://localhost:31231
 ```
 ## Step-03: Uninstall Helm Release
-```t
+```bash
 # Uninstall Helm Release
 helm uninstall <RELEASE-NAME>
 helm uninstall mychart1-1689683948

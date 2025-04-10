@@ -1,19 +1,23 @@
 # Helm Builtin Objects
 
 ## Step-01: Introduction
-- Objects are passed into a template from the template engine. 
-- Objects can be simple, and have just one value or they can contain other objects or functions. 
+
+- Objects are passed into a template from the template engine.
+- Objects can be simple, and have just one value or they can contain other objects or functions.
 - For example: the Release object contains several objects (like .Release.Name) and the Files object has a few functions.
-### Helm Builtin Objects
-- Release 
-- Chart 
-- Values 
-- Capabilities 
-- Template 
-- Files 
+
+Helm Builtin Objects
+
+- Release
+- Chart
+- Values
+- Capabilities
+- Template
+- Files
 
 ## Step-02: Create a simple chart and clean-up NOTES.txt
-```t
+
+```bash
 # Create Helm Chart
 helm create CHART-NAME
 helm create builtinobjects
@@ -30,7 +34,8 @@ helm install myapp1 . --dry-run
 ```
 
 ## Step-03: Helm Object: Root or dot or Period (.)
-```t
+
+```bash
 # Update NOTES.txt
 {{/* Root or Dot or Period Object */}}
 Root Object: {{ . }}
@@ -43,10 +48,12 @@ helm install myapp101 . --dry-run
 ```
 
 ## Step-04: Helm Object: Release
-- This object describes the Helm release. 
+
+- This object describes the Helm release.
 - It has several objects inside it related to Helm Release.
 - Put the below in `NOTES.txt` and test it
-```t
+
+```bash
 {{/* Release Object */}}
 Release Name: {{ .Release.Name }}
 Release Namespace: {{ .Release.Namespace }}
@@ -72,11 +79,13 @@ Release Service: Helm
 ```
 
 ## Step-05: Helm Object: Chart
-- Any data in Chart.yaml will be accessible using Chart Object. 
+
+- Any data in Chart.yaml will be accessible using Chart Object.
 - For example {{ .Chart.Name }}-{{ .Chart.Version }} will print out the builtinobjects-0.1.0.
 - [Complte Chart.yaml Objects for reference](https://helm.sh/docs/topics/charts/#the-chartyaml-file)
 - Put the below in `NOTES.txt` and test it
-```t
+
+```bash
 {{/* Chart Objet */}}
 Chart Name: {{ .Chart.Name }}
 Chart Version: {{ .Chart.Version }}
@@ -99,11 +108,13 @@ Chart Name and Version: builtinobjects-0.1.0
 ```
 
 ## Step-06: Helm Objects: Values, Capabilities, Template
+
 - **Values Object:** Values passed into the template from the values.yaml file and from user-supplied files. By default, Values is empty.
 - **Capabilities Object:** This provides information about what capabilities the Kubernetes cluster supports
 - **Template Object:** Contains information about the current template that is being executed
 - Put the below in `NOTES.txt` and test it
-```t
+
+```bash
 {{/* Values Object */}}
 Replica Count: {{ .Values.replicaCount }}
 Image Repository: {{ .Values.image.repository }}
@@ -142,10 +153,12 @@ Template Base Path: builtinobjects/templates
 ```
 
 ## Step-07: Helm Objects: Files
-- **Files Object:** 
+
+- **Files Object:**
 - Put the below in `NOTES.txt` and test it
 - [Additional Reference: Access Files Inside Templates](https://helm.sh/docs/chart_template_guide/accessing_files/)
-```t
+
+```bash
 {{/* File Object */}}
 File Get: {{ .Files.Get "myconfig1.toml" }}
 File Glob as Config: {{ (.Files.Glob "config-files/*").AsConfig }}
@@ -181,7 +194,6 @@ File Glob: map[config-files/myconfig2.toml:[97 112 112 78 97 109 101 58 32 109 1
 ```
 
 ## Additional Reference
+
 - [Helm Built-In Objects](https://helm.sh/docs/chart_template_guide/builtin_objects/)
 - [Helm Chart.yaml Fields](https://helm.sh/docs/chart_template_guide/builtin_objects/)
-
-

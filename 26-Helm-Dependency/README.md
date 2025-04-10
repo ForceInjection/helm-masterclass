@@ -9,7 +9,7 @@
 - helm dependency repository @REPO vs REPO-URL
 
 ## Step-02: Create Parent Chart
-```t
+```bash
 # Create Parent Chart
 helm create parentchart
 ```
@@ -37,7 +37,7 @@ dependencies:
 ## Step-04: Helm Dependency Commands - List and Update
 - **helm dependency list:** List all of the dependencies declared in a chart.
 - **helm dependency update:** update parent chart `charts/` folded based on the contents of file `Chart.yaml`
-```t
+```bash
 # Helm Dependency List
 helm dependency list
 Observation: 
@@ -67,7 +67,7 @@ Observation: Should see status as "OK"
 - Updates to parent chart `Chart.yaml`
 
 ### Step-05-01: Helm Chart Version Notation
-```t
+```bash
 Helm Chart Version Notation: Major.Minor.Patch 
 MySQL Helm Chart Version: 9.10.8
 Major: 9
@@ -77,7 +77,7 @@ Patch: 8
 ### Step-05-02: Basic Comparison Operators
 - We can define the version constraints using basic comparison operators
 - Where possible, use version ranges instead of pinning to an exact version.
-```t
+```bash
 # Basic Comparison Operators
 version: "= 9.10.8" 
 version: "!= 9.10.8" 
@@ -91,7 +91,7 @@ version: ">= 9.10.8 < 9.11.0"
 ### Step-05-03: For Range Comparison Major: Caret Symbol(ˆ)
 - `x` is a placeholder
 - The caret (^) operator is for major level changes once a stable (1.0.0) release has occurred.
-```t
+```bash
 # For Range Comparison Major: Caret Symbol(ˆ)
 ^9.10.1  is equivalent to >= 9.10.1, < 10.0.0
 ^9.10.x  is equivalent to >= 9.10.0, < 10.0.0   
@@ -106,7 +106,7 @@ version: ">= 9.10.8 < 9.11.0"
   - patch level ranges when a minor version is specified 
   - major level changes when the minor number is missing. 
 - The suggested default is to use a patch-level version match which is first one in the below table 
-```t
+```bash
 # For Range Comparison Major: Caret Symbol(ˆ)
 ~9.10.1  is equivalent to >= 9.10.1, < 9.11.0 # Patch-level version match
 ~9.10    is equivalent to >= 9.10, < 9.11
@@ -137,7 +137,7 @@ helm dep update
 - **helm dependency build:** rebuild the `charts/` directory based on the `Chart.lock` file
 - In short `dep update` command will negotiate with version constraints defined in `Chart.yaml` where as `dep build` will try to build or download or update whatever version preset in `Chart.lock` file
 - If no lock file is found, `helm dependency build` will mirror the behavior of `helm dependency update`.
-```t
+```bash
 # helm dependency build
 helm dependency build CHART-NAME
 helm dependency build parentchart
@@ -146,7 +146,7 @@ helm dependency build parentchart
 ## Step-07: Helm Dependency Repository @REPO vs REPO-URL
 - When we are using Helm with DevOps pipelines across environments "@REPO" approach is not recommended
 - REPO-URL approach (repository: "https://charts.bitnami.com/bitnami") is always recommended
-```t
+```bash
 # With Repository URL (Recommended approach)
 dependencies:
 - name: mysql

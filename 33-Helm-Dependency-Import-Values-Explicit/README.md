@@ -1,10 +1,13 @@
 # Helm Dependency - Import Values Explicit
 
 ## Step-01: Introduction
+
 - Import Values Explicit
 
 ## Step-02: Review / Update Subchart values.yaml
+
 - **File Location:** parentchart/charts/mychart1/values.yaml
+
 ```yaml
 # Export Values - MyChart1 (Used for Import Values Explicit Usecase)
 exports:
@@ -16,6 +19,7 @@ exports:
 ```
 
 ## Step-03: Review / Update Chart.yaml mychart1 dependency with import-values argument
+
 ```yaml
 - name: mychart1
   version: "0.1.0"
@@ -28,7 +32,9 @@ exports:
 ```
 
 ## Step-04: Review / Update parentchart configmap.yaml
+
 - **File Location:** parentchart/templates/configmap.yaml
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -38,8 +44,9 @@ data:
 {{- toYaml .Values.mychart1appInfo | nindent 2 }}
 ```
 
-## Step-05: Import Values Explicit: Deploy and Verify 
-```t
+## Step-05: Import Values Explicit: Deploy and Verify
+
+```bash
 # Change to Chart Directory
 cd parentchart
 
@@ -68,8 +75,9 @@ We should see the data exported from parentchart/charts/mychart1/values.yaml imp
 helm uninstall myapp1 
 ```
 
-## Step-06: Test when mychart1 is disabled 
-```t
+## Step-06: Test when mychart1 is disabled
+
+```bash
 # Change to Chart Directory
 cd parentchart
 

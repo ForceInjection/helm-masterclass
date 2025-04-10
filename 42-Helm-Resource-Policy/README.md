@@ -16,7 +16,7 @@ metadata:
 ```
 ## Step-03: Create a Chart and Add Resource Policy Annotation to deployment.yaml
 - **File Location:** respolicytest/templates/deployment.yaml
-```t
+```bash
 # Helm Create
 helm create respolicytest
 
@@ -28,7 +28,7 @@ metadata:
 ```
 
 ## Step-03: Helm Install, Uninstall and Verify
-```t
+```bash
 # Change to Chart Directory
 cd respolicytest
 

@@ -1,17 +1,19 @@
 # Helm Development - Named Templates
 
 ## Step-01: Introduction
+
 - Create Named Template
 - Call the named template using template action
 - Pass Root Object dot (.) to template action provided if we are using Helm builtin objects in our named template
 - For `template call` use `pipelines` and see if it works
 - Replace `template call` with special purpose function `include` in combination with `pipelines` and test it
 
-
 ## Step-02: Create a Named Template
+
 - **File Location:** deployment.yaml
 - Define the below named template in `deployment.yaml`
-```t
+
+```bash
 {{/* Common Labels */}}
 {{- define "helmbasics.labels"}}
     app: nginx
@@ -19,6 +21,7 @@
 ```
 
 ## Step-03: Call the named template using template action
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -29,7 +32,8 @@ metadata:
 ```
 
 ## Step-04: Test the output with template action
-```t
+
+```bash
 # Change to Chart Directory 
 cd helmbasics
 
@@ -47,7 +51,8 @@ helm uninstall myapp101
 ```
 
 ## Step-05: Add one Builtin Object Chart.Name to labels
-```t
+
+```bash
 {{/* Common Labels */}}
 {{- define "helmbasics.labels"}}
     app: nginx
@@ -56,7 +61,8 @@ helm uninstall myapp101
 ```
 
 ## Step-06: Test the output with template action
-```t
+
+```bash
 # Change to Chart Directory 
 cd helmbasics
 
@@ -74,7 +80,9 @@ Observation:
 ```
 
 ## Step-07: Pass scope to the template call
+
 - Add dot "." (Root Object or period) at the end of template call to pass scope to template call
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -85,7 +93,8 @@ metadata:
 ```
 
 ## Step-08: Test the output with template action when scope passed to template call
-```t
+
+```bash
 # Change to Chart Directory 
 cd helmbasics
 
@@ -98,8 +107,9 @@ Observation:
 Chart Name should be displayed
 ```
 
-## Step-09: Pipe an Upper function to template 
-```t
+## Step-09: Pipe an Upper function to template
+
+```bash
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -109,7 +119,8 @@ metadata:
 ```
 
 ## Step-10: Test the output when template action + pipe + upper function
-```t
+
+```bash
 # Change to Chart Directory 
 cd helmbasics
 
@@ -124,6 +135,7 @@ Observation:
 ```
 
 ## Step-11: Replace Template action with Special Purpose include function
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -134,7 +146,8 @@ metadata:
 ```
 
 ## Step-10: Test the output include function
-```t
+
+```bash
 # Change to Chart Directory 
 cd helmbasics
 
@@ -147,12 +160,15 @@ Observation:
 1. Call include "helmbasics.labels" -- should be successful
 2. Should show all labels in upper case
 ```
+
 ## Step-11: Underscoe file (_helpers.tpl)
+
 - Move the named template `helmbasics.labels` to `_helpers.tpl` file
-- But files whose name begins with an underscore (_) are assumed to not have a kubernetes manifest inside. 
+- But files whose name begins with an underscore (_) are assumed to not have a kubernetes manifest inside.
 - These files are not rendered to Kubernetes object definitions, but are available everywhere within other chart templates for use.
-- These files are used to store partials and helpers. 
-```t
+- These files are used to store partials and helpers.
+
+```bash
 {{/* Common Labels */}}
 {{- define "helmbasics.labels"}}
     app: nginx
@@ -161,7 +177,8 @@ Observation:
 ```
 
 ## Step-12: Test the output after moving named template to _helpers.tpl
-```t
+
+```bash
 # Change to Chart Directory 
 cd helmbasics
 

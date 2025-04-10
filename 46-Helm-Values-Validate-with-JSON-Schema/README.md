@@ -1,18 +1,21 @@
 # Helm Values - Validate with JSON Schema
 
 ## Step-01: Introduction
+
 - Helm Values - Validate with JSON Schema
 
 ## Step-02: Review helmbasics Helm Chart
+
 - Simple Helm Chart
 - deployment.yaml
 - Core focus will be on learning about `values.schema.json`
 
 ## Step-03: Convert values.yaml to json
--  [Use website json2yaml](https://www.json2yaml.com/)
 
+- [Use website json2yaml](https://www.json2yaml.com/)
 
 ## Step-04: Convert Json to Json Schema
+
 - [Use website](https://transform.tools/json-to-json-schema)
 
 ```json
@@ -52,10 +55,12 @@
 ```
 
 ## Step-05: Create file values.schema.json on Helm Chart Root Directory
+
 - Create file `values.schema.json`
 - Copy JSON content from previous step
 
 ## Step-06: Add Pattern for pullPolicy
+
 ```json
         "pullPolicy": {
           "type": "string",
@@ -64,7 +69,8 @@
 ```
 
 ## Step-06: Verify values.schema.json
-```t
+
+```bash
 # Change to Chart Directory
 cd helmbasics
 

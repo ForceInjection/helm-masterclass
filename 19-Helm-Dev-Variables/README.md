@@ -1,9 +1,11 @@
 # Helm Development - Variables
 
 ## Step-01: Introduction
+
 - How to use Variables ?
 
 ## Step-02: Variables in Helm Templates
+
 ```yaml
 # Change-1: Add Variable at the top of deployment template
 {{- $chartname := .Chart.Name -}}
@@ -32,7 +34,8 @@ We should see variable value substituted successfully
 ```
 
 ## Step-03: Test Variables in combination with Pipelines
-```t
+
+```bash
 # Add Pipeline with quote and upper function
 {{- $chartname := .Chart.Name | quote | upper -}}
 apiVersion: apps/v1

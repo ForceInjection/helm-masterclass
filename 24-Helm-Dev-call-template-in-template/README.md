@@ -1,11 +1,14 @@
 # Helm Named Templates - Call Template in Template
 
 ## Step-01: Introduction
+
 - We can call one named template in other named template.
 
-## Step-02: Update _helpers.tpl 
+## Step-02: Update _helpers.tpl
+
 - We will udpate the template `helmbasics.labels` with `template-in-template` as additional label by calling the named template `helmbasics.resourceName`
-```t
+
+```bash
 {{/* Common Labels */}}
 {{- define "helmbasics.labels"}}
     app.kubernetes.io/managed-by: helm
@@ -16,7 +19,8 @@
 ```
 
 ## Step-03: Test the changes
-```t
+
+```bash
 # Change to Chart Directory 
 cd helmbasics
 

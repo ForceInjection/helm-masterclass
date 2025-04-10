@@ -1,29 +1,38 @@
 # Helm Hook Weights
 
 ## Step-01: Introduction
+
 - Hook weights can be positive or negative numbers but must be represented as strings (in double quotes "8")
+
 ```yaml
 annotations:
   "helm.sh/hook-weight": "5"
 ```
+
 - When Helm starts the execution cycle of hooks of a particular Kind (Example: kind:pod) it will sort those hooks in ascending order.
 
 ## Step-02: Review Hook Pod Template Annotations
+
 ### preinstall-hookpod1.yaml
+
 ```yaml
   annotations:
     "helm.sh/hook": "pre-install"
     "helm.sh/hook-delete-policy": before-hook-creation
     "helm.sh/hook-weight": "-2"
 ```
+
 ### preinstall-hookpod2.yaml
+
 ```yaml
   annotations:
     "helm.sh/hook": "pre-install"
     "helm.sh/hook-delete-policy": before-hook-creation
     "helm.sh/hook-weight": "5"
 ```
+
 ### preinstall-hookpod3.yaml
+
 ```yaml
   annotations:
     "helm.sh/hook": "pre-install"
@@ -32,7 +41,8 @@ annotations:
 ```
 
 ## Step-03: Install Helm Release
-```t
+
+```bash
 # Change Directory (In Helm Chart Folder)
 cd hooksdemo1
 
@@ -58,7 +68,8 @@ kubectl describe pod myhook-preinstall3 | grep -E 'Anno|Started:|Finished:'
 ```
 
 ## Step-04: Uninstall Helm Release and Clean-Up
-```t
+
+```bash
 # List Helm Releases
 helm list
 

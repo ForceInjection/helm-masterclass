@@ -1,10 +1,12 @@
 # Helm Use OCI-based Registries
 
 ## Step-01: Introduction
+
 - We will use Docker Hub as our OCI registry for storing Helm Charts
 
 ## Step-02: Review Helm Chart
-```t
+
+```bash
 # Create Chart
 helm create myocidemo
 
@@ -29,7 +31,8 @@ Will create package with file name "myocidemo-0.1.0.tgz"
 ```
 
 ## Step-03: OCI Registry: Docker Hub
-```t
+
+```bash
 # SigUp and SignIn to Docker Hub
 https://hub.docker.com
 
@@ -50,7 +53,8 @@ Review Tabs
 ```
 
 ## Step-04: Update and Push Chart Version: 0.2.0
-```t
+
+```bash
 # Package with Chart Version and App Version 0.2.0
 helm package myocidemo --version "0.2.0" --app-version "0.2.0"
 
@@ -59,7 +63,8 @@ helm push myocidemo-0.2.0.tgz  oci://registry-1.docker.io/stacksimplify
 ```
 
 ## Step-05: Pull Helm Chart from OCI Registry
-```t
+
+```bash
 # Create Directory
 mkdir mypackages
 
@@ -67,8 +72,10 @@ mkdir mypackages
 helm pull oci://registry-1.docker.io/stacksimplify/myocidemo --version 0.1.0
 helm pull oci://registry-1.docker.io/stacksimplify/myocidemo --version 0.2.0
 ```
+
 ## Step-06: Helm Template and Show Commands
-```t
+
+```bash
 # Helm Template Command
 helm template <my-release> oci://registry-1.docker.io/stacksimplify/myocidemo --version 0.1.0
 helm template myapp1 oci://registry-1.docker.io/stacksimplify/myocidemo --version 0.1.0
@@ -80,7 +87,8 @@ helm show all oci://registry-1.docker.io/stacksimplify/myocidemo --version 0.2.0
 ```
 
 ## Step-07: Helm Install and Upgrade from OCI Registry
-```t
+
+```bash
 # Helm Install
 helm install <my-release> oci://registry-1.docker.io/stacksimplify/myocidemo --version 0.1.0
 helm install myapp1 oci://registry-1.docker.io/stacksimplify/myocidemo --version 0.1.0
@@ -105,7 +113,8 @@ http://localhost:<get-from-svc-output>
 ```
 
 ## Step-08: Migrate from Classic Chart Repository to OCI Registry
-```t
+
+```bash
 # List and add Helm Chart Repository
 helm repo list
 helm repo add mygithelmrepo https://stacksimplify.github.io/helm-charts-repo/
@@ -134,4 +143,3 @@ helm push myfirstchart-0.2.0.tgz  oci://registry-1.docker.io/stacksimplify
 # Verify on Docker Hub
 https://hub.docker.com
 ```
-

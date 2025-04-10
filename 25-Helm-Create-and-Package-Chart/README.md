@@ -1,16 +1,19 @@
 # Create and Package Helm Charts
 
 ## Step-01: Introduction
+
 1. We will learn the following things
 2. helm create to create a new Helm Chart
-3. Update the Chart with basic information like our Docker Image, appversion, chart version 
+3. Update the Chart with basic information like our Docker Image, appversion, chart version
 4. Update the Chart to support to NodePort Service, helm install and test
-5. helm package 
+5. helm package
 6. helm package --app-version --version
+
 - [Docker Image used](https://github.com/users/stacksimplify/packages/container/package/kubenginx)
 
 ## Step-02: Helm Create Chart
-```t
+
+```bash
 # Helm Create Chart
 helm create <CHART-NAME>
 helm create myfirstchart
@@ -20,8 +23,10 @@ Observation:
 ```
 
 ## Step-03: Update values.yaml with our Application Docker Image
+
 - [Docker Image used](https://github.com/users/stacksimplify/packages/container/package/kubenginx)
 - Review `templates/deployment.yaml`
+
 ```yaml
 image:
   repository: ghcr.io/stacksimplify/kubenginx
@@ -29,7 +34,9 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 ```
+
 ## Step-04: Convert the Kubernetes Service to NodePort
+
 ```yaml
 # Update values.yaml
 service:
@@ -42,7 +49,8 @@ nodePort: {{ .Values.service.nodePort }}
 ```
 
 ## Step-05: Update Chart.yaml
-```t
+
+```bash
 ### Chart Version and Description
 # Before
 version: 0.1.0
@@ -61,7 +69,8 @@ appVersion: "1.0.0"
 ```
 
 ## Step-06: Helm Install - Chart Version 1.0.0 and Test it
-```t
+
+```bash
 # Helm Install
 cd myfirstchart
 helm install myapp1v1 .
@@ -81,8 +90,10 @@ kubectl get svc
 http://127.0.0.1:31231
 http://localhost:31231
 ```
+
 ## Step-07: Helm Package - v1.0.0
-```t
+
+```bash
 # Check if you are  in Directory
 25-Helm-Create-and-Package-Chart
 
@@ -98,7 +109,8 @@ Package file name: myfirstchart-1.0.0.tgz
 ```
 
 ## Step-08: Helm Package - v2.0.0
-```t
+
+```bash
 ### Chart Version and Description
 # Before
 version: 1.0.0
@@ -127,7 +139,8 @@ Package file name: myfirstchart-2.0.0.tgz
 ```
 
 ## Step-09: Helm Install by path to a packaged chart and Verify
-```t
+
+```bash
 # Helm Install
 helm install myapp1v2 packages/myfirstchart-2.0.0.tgz --set service.nodePort=31232
 
@@ -148,14 +161,17 @@ http://localhost:31232
 ```
 
 ## Step-10: Helm Package with --app-version, --version
+
 - [Docker Image used](https://github.com/users/stacksimplify/packages/container/package/kubenginx)
-```t
+
+```bash
 # Helm Package  --app-version
 helm package myfirstchart/ --app-version "3.0.0" --version "3.0.0" --destination packages/
 ```
 
 ## Step-11: Helm Install and Test if --version "3.0.0" worked
-```t
+
+```bash
 # Helm Install from package
 helm install myapp1v3 packages/myfirstchart-3.0.0.tgz --set service.nodePort=31233
 
@@ -178,7 +194,8 @@ Observation:
 ```
 
 ## Step-12: Uninstall Helm Releases
-```t
+
+```bash
 # List Helm Releases
 helm list
 helm list --output=yaml
@@ -188,9 +205,12 @@ helm uninstall myapp1v1
 helm uninstall myapp1v2
 helm uninstall myapp1v3
 ```
+
 ## Step-13: Helm Show Commands
+
 - **helm show:** show information of a chart
-```t
+
+```bash
 # Helm Show Chart
 helm show chart myfirstchart/
 helm show chart packages/myfirstchart-2.0.0.tgz
@@ -206,5 +226,3 @@ helm show readme myfirstchart/
 helm show all myfirstchart/
 helm show all packages/myfirstchart-2.0.0.tgz
 ```
-
-

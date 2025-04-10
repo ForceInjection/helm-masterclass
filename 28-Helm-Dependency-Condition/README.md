@@ -1,14 +1,16 @@
 # Helm Dependency - Condition
 
 ## Step-01: Introduction
+
 - Implement `Condition` for enabling or disabling Sub Charts or Child Charts
 - Override subchart(child chart) values from parent chart
 
-
 ## Step-02: Chart.yaml
+
 - Understand the importance of `condition` when defining dependencies
 - By default, if we the condition is defined or not `condition: mychart4.enabled`, chart is enaled when defined
 - To disable it we need to explicitly make it `false` in `values.yaml`
+
 ```yaml
 dependencies:
 - name: mychart4
@@ -24,7 +26,8 @@ dependencies:
 ```
 
 ## Step-03: Deploy and Test - By Default enabled is true
-```t
+
+```bash
 # Helm Dependency Update
 helm dependency update parentchart/
 or
@@ -58,6 +61,7 @@ helm uninstall myapp1
 ```
 
 ## Step-04: Update values.yaml
+
 ```yaml
 # Values for Child Charts with Chart Name
 mychart4:
@@ -66,9 +70,9 @@ mychart2:
   enabled: false  
 ```
 
-
 ## Step-05: Deploy and Test - when childcharts are disabled
-```t
+
+```bash
 # Helm Dependency Update
 helm dependency update parentchart/
 or
@@ -100,7 +104,8 @@ parentchart: http://localhost:<port-from-get-svc-output>
 ```
 
 ## Step-06: Uninstall Helm Release
-```t
+
+```bash
 # Helm Uninstall
 helm uninstall myapp1
 ```
