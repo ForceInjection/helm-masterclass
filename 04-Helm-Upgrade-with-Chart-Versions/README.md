@@ -1,9 +1,10 @@
-# Helm Upgrade with Chart Versions
+# 使用 Chart 版本进行 Helm 升级
 
-## Step-01: Introduction
-- We are going to learn some additional flags for `helm search repo` command
-- We are going to Install and Upgrade Helm Releases using Chart Versions
-- In addition, we are going to learn about Helm Rollback 
+## 步骤-01：介绍
+
+- 我们将学习 `helm search repo` 命令的一些附加标志
+- 我们将使用 Chart 版本安装和升级 Helm 发布
+- 此外，我们还将学习 Helm 回滚
 - helm install
 - helm search repo
 - helm status
@@ -11,15 +12,17 @@
 - helm rollback
 - helm history
 
-## Step-02: Search Helm Repo for mychart2
-- [Review mychart2 in Github Repo](https://github.com/stacksimplify/helm-charts/tree/main)
-- mychart2 has 4 chart versions (0.1.0, 0.2.0, 0.3.0, 0.4.0)
-- mychart2 Chart Versions -> App Version
+## 步骤-02：在 Helm 仓库中搜索 mychart2
+
+- [在 Github 仓库中查看 mychart2](https://github.com/stacksimplify/helm-charts/tree/main)
+- mychart2 有 4 个 chart 版本（0.1.0、0.2.0、0.3.0、0.4.0）
+- mychart2 Chart 版本 -> 应用版本
 - 0.1.0 -> 1.0.0
 - 0.2.0 -> 2.0.0
 - 0.3.0 -> 3.0.0
 - 0.4.0 -> 4.0.0
-- [Review Artifacthub.io](https://artifacthub.io/packages/helm/stacksimplify/mychart2/)
+- [查看 Artifacthub.io](https://artifacthub.io/packages/helm/stacksimplify/mychart2/)
+
 ```bash
 # Search Helm Repo
 helm search repo mychart2
@@ -35,7 +38,8 @@ helm search repo mychart2 --version "0.2.0"
 Observation: Should display specified version of helm chart 
 ```
 
-## Step-03: Install Helm Chart by specifying Chart Version
+## 步骤-03：通过指定 Chart 版本安装 Helm Chart
+
 ```bash
 # Install Helm Chart by specifying Chart Version
 helm install myapp101 stacksimplify/mychart2 --version "CHART-VERSION"
@@ -55,7 +59,8 @@ kubectl get pods
 kubectl logs -f POD-NAME
 ```
 
-## Step-04: Helm Upgrade using Chart Version
+## 步骤-04：使用 Chart 版本进行 Helm 升级
+
 ```bash
 # Helm Upgrade using Chart Version
 helm upgrade myapp101 stacksimplify/mychart2 --version "0.2.0"
@@ -73,7 +78,8 @@ http://localhost:31232
 helm history myapp101
 ```
 
-## Step-05: Helm Upgrade without Chart Version
+## 步骤-05：不指定 Chart 版本的 Helm 升级
+
 ```bash
 # Helm Upgrade using Chart Version
 helm upgrade myapp101 stacksimplify/mychart2
@@ -92,8 +98,10 @@ Observation: Should take the latest release which is Appversion 4.0.0, Chart Ver
 helm history myapp101
 ```
 
-## Step-06: Helm Rollback
-- Roll back a release to a previous revision or a specific revision
+## 步骤-06：Helm 回滚
+
+- 将发布回滚到先前的修订版本或特定修订版本
+
 ```bash
 # Rollback to previous version
 helm rollback RELEASE-NAME 
@@ -114,7 +122,9 @@ helm history myapp101
 ```
 
 ## Step-07: Helm Rollback to specific Revision
+
 - Roll back a release to a previous revision or a specific revision
+
 ```bash
 # Rollback to previous version
 helm rollback RELEASE-NAME REVISION
@@ -133,6 +143,3 @@ Observation: Should see V1 version of Application (Chart Version 0.1.0, AppVersi
 # List Release History
 helm history myapp101
 ```
-
-
-

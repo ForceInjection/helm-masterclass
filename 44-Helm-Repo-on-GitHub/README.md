@@ -1,53 +1,53 @@
-# Helm Repository on GitHub
+# 在 GitHub 上托管 Helm 仓库
 
-## Step-01: Introduction
+## 步骤-01：介绍
 
-- Host Helm Repository on GitHub
+- 在 GitHub 上托管 Helm 仓库
 
-## Step-02: Create GitHub Repository
+## 步骤-02：创建 GitHub 仓库
 
-- **Repository Name:** helm-charts-repo
-- **Description:** Helm Charts Repository on GitHub
-- **Repository Type:** Public
-- **Initialize this repository with:** CHECK Add a README file
-- Click on **Create repository**
+- **仓库名称：** helm-charts-repo
+- **描述：** GitHub 上的 Helm Charts 仓库
+- **仓库类型：** 公开
+- **初始化此仓库：** 勾选添加 README 文件
+- 点击 **创建仓库**
 
-## Step-03: Create gh-pages branch
+## 步骤-03：创建 gh-pages 分支
 
-- **New branch name:** gh-pages
-- **Source:** main
-- Click on **Create new branch**
+- **新分支名称：** gh-pages
+- **源：** main
+- 点击 **创建新分支**
 
-## Step-04: Enable GitHub Pages for gh-pages branch (if not enabled by default)
+## 步骤-04：为 gh-pages 分支启用 GitHub Pages（如果默认未启用）
 
-- Go to repository: helm-charts-repo -> Settings -> Code and Automation -> Pages
-- Review **Branch**
-- Also access the GitHub pages site
+- 转到仓库：helm-charts-repo -> Settings -> Code and Automation -> Pages
+- 查看 **Branch**
+- 同时访问 GitHub pages 站点
 - <https://stacksimplify.github.io/helm-charts-repo/>
 
-## Step-05: Clone the GitHub Repository local desktop
+## 步骤-05：将 GitHub 仓库克隆到本地桌面
 
 ```bash
-# Clone the GitHub Repository
+# 克隆 GitHub 仓库
 git clone git@github.com:stacksimplify/helm-charts-repo.git
 ```
 
-## Step-06: Review and Copy GitRepo Files
+## 步骤-06：查看并复制 GitRepo 文件
 
 ```bash
-# Change Directory
+# 更改目录
 cd 44-Helm-Repo-on-GitHub
 
-# Copy content from gitrepo-content to helm-charts-repo
-1. .github folder: contains GitHub Actions release.yaml
-2. charts folder: Contains "myfirstchart" helm chart
+# 将内容从 gitrepo-content 复制到 helm-charts-repo
+1. .github 文件夹：包含 GitHub Actions release.yaml
+2. charts 文件夹：包含 "myfirstchart" helm chart
 ```
 
-## Step-07: Create Chart Release 0.1.0
+## 步骤-07：创建 Chart 发布版本 0.1.0
 
-### Step-07-01: Verify Chart.yaml
+### 步骤-07-01：验证 Chart.yaml
 
-- Ensure we have the `appVersion: "0.1.0"` and `version: 0.1.0`
+- 确保我们有 `appVersion: "0.1.0"` 和 `version: 0.1.0`
 
 ```yaml
 apiVersion: v2
@@ -58,102 +58,102 @@ type: application
 version: 0.1.0
 ```
 
-### Step-07-02: Check-in Code to Remote GitHub Repo
+### 步骤-07-02：将代码提交到远程 GitHub 仓库
 
 ```bash
-# Check-in Code
+# 提交代码
 git add .
 git commit -am "0.1.0 commit"
 git push
 ```
 
-### Step-07-03: Verify Actions in GitHub Repo
+### 步骤-07-03：验证 GitHub 仓库中的 Actions
 
-- Go to helm-charts-repo -> Actions
-- Review workflow runs
+- 转到 helm-charts-repo -> Actions
+- 查看工作流运行
   - 0.1.0 commit
   - pages build and deployment
 
-### Step-07-04: Switch to gh-pages branch and verify index.yaml
+### 步骤-07-04：切换到 gh-pages 分支并验证 index.yaml
 
-- Switch to `gh-pages` and review `index.yaml`
+- 切换到 `gh-pages` 并查看 `index.yaml`
 - <https://github.com/stacksimplify/helm-charts-repo/blob/gh-pages/index.yaml>
 
-### Step-07-05: Verify Releases and Tags
+### 步骤-07-05：验证发布版本和标签
 
-- Go to **Releases** and verify
-- Go to **Tags** and verify
+- 转到 **Releases** 并验证
+- 转到 **Tags** 并验证
 
-## Step-08: Create Chart Release 0.2.0
+## 步骤-08：创建 Chart 发布版本 0.2.0
 
-### Step-08-01: Update Chart.yaml version
+### 步骤-08-01：更新 Chart.yaml 版本
 
 ```bash
-# Update Chart.yaml
+# 更新 Chart.yaml
 version: 0.2.0
 appVersion: "0.2.0"
 ```
 
-### Step-08-02: Check-in Code to Remote GitHub Repo
+### 步骤-08-02：将代码提交到远程 GitHub 仓库
 
 ```bash
-# Check-in Code
+# 提交代码
 git add .
 git commit -am "0.2.0 commit"
 git push
 ```
 
-### Step-08-03: Verify Actions in GitHub Repo
+### 步骤-08-03：验证 GitHub 仓库中的 Actions
 
-- Go to helm-charts-repo -> Actions
-- Review workflow runs
+- 转到 helm-charts-repo -> Actions
+- 查看工作流运行
   - 0.1.0 commit
   - pages build and deployment
 
-### Step-08-04: Switch to gh-pages branch and verify index.yaml
+### 步骤-08-04：切换到 gh-pages 分支并验证 index.yaml
 
-- Switch to `gh-pages` and review `index.yaml`
+- 切换到 `gh-pages` 并查看 `index.yaml`
 - <https://github.com/stacksimplify/helm-charts-repo/blob/gh-pages/index.yaml>
 
-### Step-08-05: Verify Releases and Tags
+### 步骤-08-05：验证发布版本和标签
 
-- Go to **Releases** and verify
-- Go to **Tags** and verify
+- 转到 **Releases** 并验证
+- 转到 **Tags** 并验证
 
-## Step-09: Add GitHub Helm Repo in local desktop and Search Repo
+## 步骤-09：在本地桌面添加 GitHub Helm 仓库并搜索仓库
 
 ```bash
-# Helm Repo URL
+# Helm 仓库 URL
 https://stacksimplify.github.io/helm-charts-repo/
 
-# List Helm Repo
+# 列出 Helm 仓库
 helm repo list
 
-# Add Helm Repo
+# 添加 Helm 仓库
 helm repo add mygithelmrepo https://stacksimplify.github.io/helm-charts-repo/
 
-# List Helm Repo
+# 列出 Helm 仓库
 helm repo list
 
-# Helm Search Repo
+# Helm 搜索仓库
 helm search repo mygithelmrepo/myfirstchart
 
-# Helm Search Repo with --versions
+# 使用 --versions 搜索 Helm 仓库
 helm search repo mygithelmrepo/myfirstchart --versions
 ```
 
-## Step-10: Deploy and Verify from GitHub Helm Repo
+## 步骤-10：从 GitHub Helm 仓库部署和验证
 
 ```bash
-# Helm Install
+# Helm 安装
 helm install myapp1 mygithelmrepo/myfirstchart --atomic
 
-# Helm Status
+# Helm 状态
 helm status myapp1 --show-resources
 
-# Access Application
+# 访问应用程序
 http://localhost:31239
 
-# Helm Uninstall
+# Helm 卸载
 helm uninstall myapp1
 ```

@@ -1,22 +1,22 @@
-# Helm Values - Validate with JSON Schema
+# Helm Values - 使用 JSON Schema 验证
 
-## Step-01: Introduction
+## 步骤-01：介绍
 
-- Helm Values - Validate with JSON Schema
+- Helm Values - 使用 JSON Schema 验证
 
-## Step-02: Review helmbasics Helm Chart
+## 步骤-02：查看 helmbasics Helm Chart
 
-- Simple Helm Chart
+- 简单的 Helm Chart
 - deployment.yaml
-- Core focus will be on learning about `values.schema.json`
+- 核心重点将是学习 `values.schema.json`
 
-## Step-03: Convert values.yaml to json
+## 步骤-03：将 values.yaml 转换为 json
 
-- [Use website json2yaml](https://www.json2yaml.com/)
+- [使用网站 json2yaml](https://www.json2yaml.com/)
 
-## Step-04: Convert Json to Json Schema
+## 步骤-04：将 Json 转换为 Json Schema
 
-- [Use website](https://transform.tools/json-to-json-schema)
+- [使用网站](https://transform.tools/json-to-json-schema)
 
 ```json
 {
@@ -54,12 +54,12 @@
 }
 ```
 
-## Step-05: Create file values.schema.json on Helm Chart Root Directory
+## 步骤-05：在 Helm Chart 根目录创建 values.schema.json 文件
 
-- Create file `values.schema.json`
-- Copy JSON content from previous step
+- 创建文件 `values.schema.json`
+- 从上一步复制 JSON 内容
 
-## Step-06: Add Pattern for pullPolicy
+## 步骤-06：为 pullPolicy 添加模式
 
 ```json
         "pullPolicy": {
@@ -68,21 +68,21 @@
         },
 ```
 
-## Step-06: Verify values.schema.json
+## 步骤-07：验证 values.schema.json
 
 ```bash
-# Change to Chart Directory
+# 切换到 Chart 目录
 cd helmbasics
 
 # Helm lint
 helm lint .
 
-# Required Test: Pass null value and verify
+# 必需测试：传递空值并验证
 helm template myapp1 . --set replicaCount=""
 
-# Integer Test: Provide replicaCount as String
+# 整数测试：将 replicaCount 提供为字符串
 helm template myapp1 . --set replicaCount=kalyan
 
-# Constraint Validation Test: Provide invalid value instead of allowed values (Allowed Values: Always, Never, IfNotPresent)
+# 约束验证测试：提供无效值而不是允许的值（允许的值：Always、Never、IfNotPresent）
 helm template myapp1 . --set image.pullPolicy=kalyan
 ```

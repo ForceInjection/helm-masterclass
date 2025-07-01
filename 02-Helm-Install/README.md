@@ -1,18 +1,22 @@
-# Helm Install 
+# Helm 安装
 
-## Step-01: Introduction
-- We will use the following commands as part of this demo
+## 步骤-01：介绍
+
+我们将在此演示中使用以下命令：
+
 - helm repo list
 - helm repo add
 - helm repo update
 - helm search repo
 - helm install
 - helm list
-- helm uninstall 
+- helm uninstall
 
-## Step-02: List, Add and Search Helm Repository
-- [Bitnami Applications packaged using Helm](https://bitnami.com/stacks/helm)
-- [Search for Helm Charts at Artifacthub.io](https://artifacthub.io/)
+## 步骤-02：列出、添加和搜索 Helm 仓库
+
+- [使用 Helm 打包的 Bitnami 应用程序](https://bitnami.com/stacks/helm)
+- 在 [Artifacthub.io](https://artifacthub.io/) 搜索 Helm Charts
+
 ```bash
 # List Helm Repositories
 helm repo list
@@ -31,8 +35,10 @@ helm search repo apache
 helm search repo wildfly
 ```
 
-## Step-03: Install Helm Chart
-- Installs the Helm Chart
+## 步骤-03：安装 Helm Chart
+
+安装 Helm Chart。
+
 ```bash
 # Update Helm Repo
 helm repo update  # Make sure we get the latest list of charts
@@ -42,8 +48,10 @@ helm install <RELEASE-NAME> <repo_name_in_your_local_desktop/chart_name>
 helm install mynginx mybitnami/nginx
 ```
 
-## Step-04: List Helm Releases
-- This command lists all of the releases for a specified namespace
+## 步骤-04：列出 Helm 发布
+
+此命令列出指定命名空间的所有发布。
+
 ```bash
 # List Helm Releases (Default Table Output)
 helm list 
@@ -60,7 +68,8 @@ helm list --namespace=default
 helm list -n default
 ```
 
-## Step-05: List Kubernetes Resources
+## 步骤-05：列出 Kubernetes 资源
+
 ```bash
 # List Kubernetes Pods
 kubectl get pods
@@ -77,7 +86,9 @@ http://127.0.0.1:80
 curl http://localhost:80
 curl http://127.0.0.1:80
 ```
-## Step-06: Uninstall Helm Release - NO FLAGS
+
+## 步骤-06：卸载 Helm 发布 - 无标志
+
 ```bash
 # List Helm Releases
 helm ls

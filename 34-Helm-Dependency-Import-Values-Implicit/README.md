@@ -1,13 +1,13 @@
-# Helm Dependency - Import Values Implicit
+# Helm 依赖 - 隐式导入值
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Implement Import Values Implicit usecase
+- 实现隐式导入值用例
 
-## Step-02: Review / Update parentchart Chart.yaml
+## 步骤-02: 查看/更新 parentchart Chart.yaml
 
-- **File Location:** parentchart/Chart.yaml
-- Define `import-values`
+- **文件位置:** parentchart/Chart.yaml
+- 定义 `import-values`
 
 ```yaml
 apiVersion: v2
@@ -30,17 +30,17 @@ dependencies:
   alias: childchart2
   tags: 
     - backend
-  import-values: # Implicit Values Usecase
+  import-values: # 隐式值用例
     - child: service 
       parent: mychart2service   
     - child: image 
       parent: mychart2image      
 ```
 
-## Step-03: Review / Update parentchart configmap.yaml
+## 步骤-03: 查看/更新 parentchart configmap.yaml
 
-- **File Location:** parentchart/templates/configmap.yaml
-- Use imported values in `configmap.yaml`
+- **文件位置:** parentchart/templates/configmap.yaml
+- 在 `configmap.yaml` 中使用导入的值
 
 ```yaml
 apiVersion: v1
@@ -54,49 +54,49 @@ data:
   imageRepository: {{ .Values.mychart2image.repository }}
 ```
 
-## Step-04: Import Values Implicit: Deploy and Verify
+## 步骤-04: 隐式导入值：部署和验证
 
 ```bash
-# Change to Chart Directory
+# 切换到图表目录
 cd parentchart
 
-# Helm Install
+# Helm 安装
 helm install myapp1 . --atomic
 
-# Helm List
+# Helm 列表
 helm list
 
-# Helm Status
+# Helm 状态
 helm status myapp1 --show-resources
 
-# List k8s Deployments
+# 列出 k8s 部署
 kubectl get deploy
 
-# List k8s pods
+# 列出 k8s pods
 kubectl get pods
 
-# List k8s ConfigMaps
+# 列出 k8s ConfigMaps
 kubectl get cm
 kubectl get cm myapp1-parentchart-import-implicit -o yaml
-Observation:
-We should see the data exported from parentchart/charts/mychart2/values.yaml imported successfully to configmap in parentchart. 
+观察结果:
+我们应该看到从 parentchart/charts/mychart2/values.yaml 导出的数据成功导入到 parentchart 中的 configmap。
 
-# Helm Uninstall
+# Helm 卸载
 helm uninstall myapp1 
 ```
 
-## Step-06: Test when mychart2 is disabled
+## 步骤-06: 测试当 mychart2 被禁用时
 
 ```bash
-# Change to Chart Directory
+# 切换到图表目录
 cd parentchart
 
-# Helm Install (When mychart2 is disabled)
+# Helm 安装 (当 mychart2 被禁用时)
 helm install myapp1 . --atomic --set tags.backend=false
-Observation:
-Should fail with error 
+观察结果:
+应该失败并显示错误
 
-## Error
+## 错误
 Kalyans-Mac-mini:parentchart kalyanreddy$ helm install myapp1 . --atomic --set tags.backend=false
 Error: INSTALLATION FAILED: template: parentchart/templates/configmap.yaml:6:25: executing "parentchart/templates/configmap.yaml" at <.Values.mychart2service.type>: nil pointer evaluating interface {}.type
 ```

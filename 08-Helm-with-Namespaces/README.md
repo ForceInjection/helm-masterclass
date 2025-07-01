@@ -1,12 +1,14 @@
-# Helm with Kubernetes Namespaces
+# Helm 与 Kubernetes 命名空间
 
-## Step-01: Introduction
-- Any resource we manage using HELM are specific to Kubernetes Namespace
-- By default, Kubernetes resources deployed to k8s cluster using default namespace, so we don't need to specify namespace name explicitly
-- In the case if we want to deploy k8s resources to a namespace (other than default), then we need to specify that in `helm install` command with flag `--namespace` or `-n`
-- In addition, we can also create a namespace during `helm install` using flags `--namespace`  `--create-namespace` 
+## 步骤-01：介绍
 
-## Step-02: Install Helm Release by creating Kubernetes Namespace dev
+- 我们使用 HELM 管理的任何资源都特定于 Kubernetes 命名空间
+- 默认情况下，Kubernetes 资源使用默认命名空间部署到 k8s 集群，因此我们不需要显式指定命名空间名称
+- 如果我们想要将 k8s 资源部署到命名空间（默认命名空间以外），那么我们需要在 `helm install` 命令中使用标志 `--namespace` 或 `-n` 指定
+- 此外，我们还可以在 `helm install` 期间使用标志 `--namespace` `--create-namespace` 创建命名空间
+
+## 步骤-02：通过创建 Kubernetes 命名空间 dev 安装 Helm 发布
+
 ```bash
 # List Kubernetes Namespaces 
 kubectl get ns
@@ -41,7 +43,8 @@ kubectl get deploy -n dev
 http://localhost:31232
 ```
 
-## Step-03: Run helm upgrade for resources present in dev namespace
+## 步骤-03：为 dev 命名空间中存在的资源运行 helm 升级
+
 ```bash
 # Helm Upgrade
 helm upgrade dev101 stacksimplify/mychart2 --version "0.2.0" --namespace dev 
@@ -60,7 +63,8 @@ helm status dev101 --show-resources --namespace dev
 http://localhost:31232
 ```
 
-## Step-04: Uninstall Helm Release from dev Namespace
+## 步骤-04：从 dev 命名空间卸载 Helm 发布
+
 ```bash
 # Uninstall Helm Releas
 helm uninstall dev101 --namespace dev

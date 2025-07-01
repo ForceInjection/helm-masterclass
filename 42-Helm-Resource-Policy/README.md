@@ -1,56 +1,62 @@
-# Helm Resource Policy Demo
+# Helm 资源策略演示
 
-## Step-01: Introduction
-- Sometimes there are resources that should not be uninstalled when Helm runs a helm uninstall 
-- Chart developers can add an annotation to a resource to prevent it from being uninstalled.
-- The annotation "helm.sh/resource-policy": keep instructs Helm to skip deleting this resource when a helm operation (such as helm uninstall, helm upgrade or helm rollback) would result in its deletion. 
-- However, this resource becomes orphaned. 
-- Helm will no longer manage it in any way. 
-- This can lead to problems if using helm install --replace on a release that has already been uninstalled, but has kept resources.
+## 步骤-01: 介绍
 
-## Step-02: Review Helm Resource Policy Annotation
+- 有时候有些资源在 Helm 运行 helm uninstall 时不应该被卸载
+- 图表开发者可以向资源添加注解来防止它被卸载。
+- 注解 "helm.sh/resource-policy": keep 指示 Helm 在 helm 操作（如 helm uninstall、helm upgrade 或 helm rollback）会导致删除时跳过删除此资源。
+- 但是，此资源会变成孤立的。
+- Helm 将不再以任何方式管理它。
+- 如果在已经卸载但保留了资源的 release 上使用 helm install --replace，这可能会导致问题。
+
+## 步骤-02: 查看 Helm 资源策略注解
+
 ```yaml
 metadata:
   annotations:
     "helm.sh/resource-policy": keep
 ```
-## Step-03: Create a Chart and Add Resource Policy Annotation to deployment.yaml
-- **File Location:** respolicytest/templates/deployment.yaml
+
+## 步骤-03: 创建图表并向 deployment.yaml 添加资源策略注解
+
+- **文件位置:** respolicytest/templates/deployment.yaml
+
 ```bash
-# Helm Create
+# Helm 创建
 helm create respolicytest
 
-# Update deployment.yaml with resource-policy
+# 使用资源策略更新 deployment.yaml
 metadata:
-  # To test Helm Resource Policy
+  # 测试 Helm 资源策略
   annotations:
     "helm.sh/resource-policy": keep
 ```
 
-## Step-03: Helm Install, Uninstall and Verify
+## 步骤-04: Helm 安装、卸载和验证
+
 ```bash
-# Change to Chart Directory
+# 切换到图表目录
 cd respolicytest
 
-# Install Helm Release 
+# 安装 Helm Release 
 helm install myapp1 .
 
-# List Deployment, pods and Services
+# 列出 Deployment、pods 和 Services
 kubectl get deploy
 kubectl get pods
 kubectl get svc
 
-# Uninstall Helm Release
+# 卸载 Helm Release
 helm uninstall myapp1
 
-# List Deployment, pods and Services
+# 列出 Deployment、pods 和 Services
 kubectl get deploy
 kubectl get pods
 kubectl get svc
-Observation:
-1. We should see deployment should not be uninstalled
-2. Its pods also should be in running state
+观察结果:
+1. 我们应该看到 deployment 不应该被卸载
+2. 它的 pods 也应该处于运行状态
 
-# Cleanup
+# 清理
 kubectl delete deploy myapp1-respolicytest
 ```

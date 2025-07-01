@@ -1,17 +1,17 @@
-# Helm Hook Weights
+# Helm 钩子权重
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Hook weights can be positive or negative numbers but must be represented as strings (in double quotes "8")
+- 钩子权重可以是正数或负数，但必须表示为字符串（用双引号 "8"）
 
 ```yaml
 annotations:
   "helm.sh/hook-weight": "5"
 ```
 
-- When Helm starts the execution cycle of hooks of a particular Kind (Example: kind:pod) it will sort those hooks in ascending order.
+- 当 Helm 开始执行特定类型（例如：kind:pod）的钩子执行周期时，它将按升序对这些钩子进行排序。
 
-## Step-02: Review Hook Pod Template Annotations
+## 步骤-02: 查看钩子 Pod 模板注解
 
 ### preinstall-hookpod1.yaml
 
@@ -40,43 +40,43 @@ annotations:
     "helm.sh/hook-weight": "6"
 ```
 
-## Step-03: Install Helm Release
+## 步骤-03: 安装 Helm Release
 
 ```bash
-# Change Directory (In Helm Chart Folder)
+# 切换目录 (在 Helm 图表文件夹中)
 cd hooksdemo1
 
-# Install Helm Release
+# 安装 Helm Release
 helm install myapp101 . 
 
-# List Helm Release
+# 列出 Helm Release
 helm list
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation:
-1. We should see all 3 hook pods created and in completed state.
-2. Verify the AGE field for timing when they executed
-3. Hook pod with lowest hook weight will be executed first
-4. In shot, hooks will be executed in ascending order of hook weight
+观察结果:
+1. 我们应该看到所有 3 个钩子 pod 被创建并处于完成状态。
+2. 验证 AGE 字段以了解它们执行的时间
+3. 具有最低钩子权重的钩子 pod 将首先执行
+4. 简而言之，钩子将按钩子权重的升序执行
 
-# Verify Pod Stated and Finished Timestamps
+# 验证 Pod 开始和结束时间戳
 kubectl describe pod myhook-preinstall1 | grep -E 'Anno|Started:|Finished:'
 kubectl describe pod myhook-preinstall2 | grep -E 'Anno|Started:|Finished:'
 kubectl describe pod myhook-preinstall3 | grep -E 'Anno|Started:|Finished:'
 
 ```
 
-## Step-04: Uninstall Helm Release and Clean-Up
+## 步骤-04: 卸载 Helm Release 并清理
 
 ```bash
-# List Helm Releases
+# 列出 Helm Releases
 helm list
 
-# Uninstall Helm Release
+# 卸载 Helm Release
 helm uninstall myapp101
 
-# Delete Hook Pods
+# 删除钩子 Pods
 kubectl get pods
 kubectl delete pod myhook-preinstall1 
 kubectl delete pod myhook-preinstall2

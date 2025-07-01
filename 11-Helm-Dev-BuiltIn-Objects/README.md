@@ -1,12 +1,12 @@
-# Helm Builtin Objects
+# Helm 内置对象
 
-## Step-01: Introduction
+## 步骤-01：介绍
 
-- Objects are passed into a template from the template engine.
-- Objects can be simple, and have just one value or they can contain other objects or functions.
-- For example: the Release object contains several objects (like .Release.Name) and the Files object has a few functions.
+- 对象从模板引擎传递到模板中。
+- 对象可以是简单的，只有一个值，也可以包含其他对象或函数。
+- 例如：Release 对象包含多个对象（如 .Release.Name），Files 对象有一些函数。
 
-Helm Builtin Objects
+Helm 内置对象
 
 - Release
 - Chart
@@ -15,7 +15,7 @@ Helm Builtin Objects
 - Template
 - Files
 
-## Step-02: Create a simple chart and clean-up NOTES.txt
+## 步骤-02：创建一个简单的 chart 并清理 NOTES.txt
 
 ```bash
 # Create Helm Chart
@@ -33,7 +33,7 @@ cd builtinobjects
 helm install myapp1 . --dry-run
 ```
 
-## Step-03: Helm Object: Root or dot or Period (.)
+## 步骤-03：Helm 对象：根或点或句号 (.)
 
 ```bash
 # Update NOTES.txt
@@ -47,11 +47,11 @@ cd builtinobjects
 helm install myapp101 . --dry-run
 ```
 
-## Step-04: Helm Object: Release
+## 步骤-04：Helm 对象：Release
 
-- This object describes the Helm release.
-- It has several objects inside it related to Helm Release.
-- Put the below in `NOTES.txt` and test it
+- 此对象描述 Helm 发布。
+- 它内部有几个与 Helm 发布相关的对象。
+- 将以下内容放入 `NOTES.txt` 并测试
 
 ```bash
 {{/* Release Object */}}
@@ -78,12 +78,12 @@ Release Revision: 1
 Release Service: Helm
 ```
 
-## Step-05: Helm Object: Chart
+## 步骤-05：Helm 对象：Chart
 
-- Any data in Chart.yaml will be accessible using Chart Object.
-- For example {{ .Chart.Name }}-{{ .Chart.Version }} will print out the builtinobjects-0.1.0.
-- [Complte Chart.yaml Objects for reference](https://helm.sh/docs/topics/charts/#the-chartyaml-file)
-- Put the below in `NOTES.txt` and test it
+- Chart.yaml 中的任何数据都可以使用 Chart 对象访问。
+- 例如 {{ .Chart.Name }}-{{ .Chart.Version }} 将输出 builtinobjects-0.1.0。
+- [完整的 Chart.yaml 对象参考](https://helm.sh/docs/topics/charts/#the-chartyaml-file)
+- 将以下内容放入 `NOTES.txt` 并测试
 
 ```bash
 {{/* Chart Objet */}}

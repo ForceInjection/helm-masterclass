@@ -1,10 +1,10 @@
-# Understand Helm Chart Folder Structure
+# 理解 Helm Chart 文件夹结构
 
-## Step-01: Introduction
+## 步骤-01：介绍
 
-- Understand Helm Chart Folder Structure
+- 理解 Helm Chart 文件夹结构
 
-## Step-02: Helm Create Chart
+## 步骤-02：Helm 创建 Chart
 
 ```bash
 # Helm Create Chart
@@ -15,7 +15,7 @@ Observation:
 2. We can call it like a helm chart created from a default starter chart
 ```
 
-## Step-03: Helm Chart Structure
+## 步骤-03：Helm Chart 结构
 
 ```text
 └── basechart

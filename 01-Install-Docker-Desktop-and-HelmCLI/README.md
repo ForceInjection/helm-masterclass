@@ -1,19 +1,19 @@
-# Install Docker Desktop and HELM CLI
+# 安装 Docker Desktop 和 HELM CLI
 
-## Step-01: Introduction
+## 步骤-01：介绍
 
-1. Install Docker Desktop
-2. Install Helm CLI on local desktop
+1. 安装 Docker Desktop
+2. 在本地桌面安装 Helm CLI
 
-## Step-02: Docker Desktop - Pricing, SignUp, Download
+## 步骤-02：Docker Desktop - 定价、注册、下载
 
-- [Docker Desktop Pricing](https://www.docker.com/pricing/)
-- [SignUp Docker Hub](https://hub.docker.com/)
-- [Download Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Docker Desktop 定价](https://www.docker.com/pricing/)
+- [注册 Docker Hub](https://hub.docker.com/)
+- [下载 Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
-## Step-03: Install Docker Desktop
+## 步骤-03：安装 Docker Desktop
 
-### Step-03-01: MACOS: Install Docker Desktop
+### 步骤-03-01：MACOS：安装 Docker Desktop
 
 ```bash
 # Install Docker Desktop
@@ -26,7 +26,7 @@ https://hub.docker.com
 Open Docker Desktop and SignIn to Docker Hub
 ```
 
-### Step-03-02: WINDOWS: Install Docker Desktop
+### 步骤-03-02：WINDOWS：安装 Docker Desktop
 
 ```bash
 # Download Docker Desktop
@@ -45,9 +45,9 @@ Open Docker Desktop and SignIn to Docker Hub
 C:\Program Files\Docker\Docker\Resources\bin
 ```
 
-## Step-04: Enable Kubernetes Cluster
+## 步骤-04：启用 Kubernetes 集群
 
-- **Additional Reference:** [Docker Desktop - k8s Cluster](https://docs.docker.com/desktop/kubernetes/)
+- **附加参考：** [Docker Desktop - k8s 集群](https://docs.docker.com/desktop/kubernetes/)
 
 ```bash
 # Enable Kubernetes Cluster
@@ -57,7 +57,7 @@ C:\Program Files\Docker\Docker\Resources\bin
 - Wait for 5 to 10 minutes for Kubernetes Cluster to come up
 ```
 
-## Step-05: Configure kubeconfig for kubectl for Docker Desktop k8s Cluster
+## 步骤-05：为 Docker Desktop k8s 集群配置 kubectl 的 kubeconfig
 
 ```bash
 # Verify if kubectl installed (Docker desktop should install kubectl automatically)
@@ -81,10 +81,10 @@ kubectl config use-context docker-desktop
 kubectl get nodes
 ```
 
-## Step-06: Verify if our k8s Cluster is functional with a Sample Application
+## 步骤-06：使用示例应用程序验证我们的 k8s 集群是否正常运行
 
-- [StackSimplify Docker Images](https://github.com/stacksimplify?tab=packages)
-- [Docker Image used in this Demo](https://github.com/users/stacksimplify/packages/container/package/kubenginxhelm)
+- [StackSimplify Docker 镜像](https://github.com/stacksimplify?tab=packages)
+- [本演示中使用的 Docker 镜像](https://github.com/users/stacksimplify/packages/container/package/kubenginxhelm)
 
 ```bash
 # Review Kubernetes Manifests
@@ -118,9 +118,9 @@ kubectl get svc
 kubectl get deploy
 ```
 
-## Step-07: Install Helm using Package Managers
+## 步骤-07：使用包管理器安装 Helm
 
-- [Install Helm](https://helm.sh/docs/intro/install/)
+- [安装 Helm](https://helm.sh/docs/intro/install/)
 
 ```bash
 # MacOS
@@ -139,7 +139,7 @@ helm version
 helm env
 ```
 
-## Step-08: Windows Install Helm CLI using package
+## 步骤-08：Windows 使用包安装 Helm CLI
 
 ```bash
 # Helm Releases - Download Windows amd64
@@ -155,7 +155,7 @@ C:\ Drive
 C:\helm\windows-amd64
 ```
 
-## Additional Optional Step: Install kubectl (if not installed by default)
+## 附加可选步骤：安装 kubectl（如果默认未安装）
 
 ```bash
 # Download & Install kubectl

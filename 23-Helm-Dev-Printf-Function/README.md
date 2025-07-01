@@ -1,19 +1,19 @@
-# Helm Printf Function
+# Helm Printf 函数
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- **[printf](https://helm.sh/docs/chart_template_guide/function_list/#printf):** Returns a string based on a formatting string and the arguments to pass to it in order.
+- **[printf](https://helm.sh/docs/chart_template_guide/function_list/#printf):** 基于格式化字符串和按顺序传递给它的参数返回一个字符串。
 
-## Step-02: Create a Named Template with printf function
+## 步骤-02: 使用 printf 函数创建命名模板
 
 ```bash
-{{/* Kubernetes Resource Name: String Concat with Hyphen */}}
+{{/* Kubernetes 资源名称: 使用连字符进行字符串连接 */}}
 {{- define "helmbasics.resourceName" }}
 {{- printf "%s-%s" .Release.Name .Chart.Name }}
 {{- end }}
 ```
 
-## Step-03: Call the named template in deployment.yaml
+## 步骤-03: 在 deployment.yaml 中调用命名模板
 
 ```yaml
 apiVersion: apps/v1
@@ -23,21 +23,21 @@ metadata:
   labels:
 ```
 
-## Step-04: Test the changes
+## 步骤-04: 测试更改
 
 ```bash
-# Change to Chart Directory 
+# 切换到 Chart 目录
 cd helmbasics
 
-# Helm Template Command
+# Helm Template 命令
 helm template myapp1 .
 
-# Helm Install with dry-run command
+# 使用 dry-run 命令进行 Helm 安装
 helm install myapp1 . --dry-run
 
-# Helm Install with --atomic flag
+# 使用 --atomic 标志进行 Helm 安装
 helm install myapp1 . --atomic
 
-# Helm Uninstall
+# Helm 卸载
 helm uninstall myapp1
 ```

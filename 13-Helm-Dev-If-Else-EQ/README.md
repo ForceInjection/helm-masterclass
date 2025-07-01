@@ -1,25 +1,25 @@
-# Helm Development - Flow Control If-Else
+# Helm 开发 - 流程控制 If-Else
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- We can use `if/else` for creating conditional blocks in Helm Templates
-- **eq:** For templates, the operators (eq, ne, lt, gt, and, or and so on) are all implemented as functions.
-- In pipelines, operations can be grouped with parentheses ((, and )).
-- [Additional Reference: Operators are functions](https://helm.sh/docs/chart_template_guide/functions_and_pipelines/#operators-are-functions)
+- 我们可以使用 `if/else` 在 Helm 模板中创建条件块
+- **eq:** 对于模板，运算符（eq、ne、lt、gt、and、or 等）都作为函数实现。
+- 在管道中，操作可以用括号（(, 和 )）分组。
+- [附加参考: 运算符是函数](https://helm.sh/docs/chart_template_guide/functions_and_pipelines/#operators-are-functions)
 
-### IF-ELSE Syntax
+### IF-ELSE 语法
 
 ```bash
 {{ if PIPELINE }}
-  # Do something
+  # 做某事
 {{ else if OTHER PIPELINE }}
-  # Do something else
+  # 做其他事
 {{ else }}
-  # Default case
+  # 默认情况
 {{ end }}
 ```
 
-## Step-02: Review values.yaml
+## 步骤-02: 查看 values.yaml
 
 ```yaml
 # If, else if, else
@@ -27,17 +27,17 @@ myapp:
   env: prod
 ```
 
-## Step-03: Logic and Flow Control Function: and
+## 步骤-03: 逻辑和流程控制函数: and
 
-- [Logic and Flow Control Functions](https://helm.sh/docs/chart_template_guide/function_list/#logic-and-flow-control-functions)
-- **eq:**  Returns the boolean equality of the arguments (e.g., Arg1 == Arg2).
+- [逻辑和流程控制函数](https://helm.sh/docs/chart_template_guide/function_list/#logic-and-flow-control-functions)
+- **eq:** 返回参数的布尔相等性（例如，Arg1 == Arg2）。
 
 ```bash
-# and Syntax
+# and 语法
 eq .Arg1 .Arg2
 ```
 
-## Step-04: Implement if-else for replicas
+## 步骤-04: 为副本数实现 if-else
 
 ```yaml
 apiVersion: apps/v1
@@ -69,33 +69,33 @@ spec:
         - containerPort: 80
 ```
 
-## Step-05: Verify if-else
+## 步骤-05: 验证 if-else
 
 ```bash
-# Change to Chart Directory
+# 切换到 Chart 目录
 cd helmbasics
 
-# Helm Template (when env: prod from values.yaml)
-## TEST IF STATEMENT
+# Helm Template（当 values.yaml 中 env: prod 时）
+## 测试 IF 语句
 helm template myapp1 .
 
-# Helm Template (when env: qa using --set)
-## TEST ELSE IF STATEMENT
+# Helm Template（使用 --set 设置 env: qa 时）
+## 测试 ELSE IF 语句
 helm template myapp1 . --set myapp.env=qa
  
-# Helm Template (when env: dev or env: null using --set)
-## TEST ELSE STATEMENT
+# Helm Template（使用 --set 设置 env: dev 或 env: null 时）
+## 测试 ELSE 语句
 helm template myapp1 . --set myapp.env=dev
 
-# Helm Install Dry-run 
+# Helm 安装 Dry-run
 helm install myapp1 . --dry-run
 
-# Helm Install
+# Helm 安装
 helm install myapp1 . --atomic
 
-# Verify Pods
+# 验证 Pods
 helm status myapp1 --show-resources
 
-# Uninstall Release
+# 卸载 Release
 helm uninstall myapp1
 ```

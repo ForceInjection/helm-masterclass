@@ -1,15 +1,15 @@
-# Helm Dependency - Import Values Explicit
+# Helm 依赖 - 显式导入值
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Import Values Explicit
+- 显式导入值
 
-## Step-02: Review / Update Subchart values.yaml
+## 步骤-02: 查看/更新子图表 values.yaml
 
-- **File Location:** parentchart/charts/mychart1/values.yaml
+- **文件位置:** parentchart/charts/mychart1/values.yaml
 
 ```yaml
-# Export Values - MyChart1 (Used for Import Values Explicit Usecase)
+# 导出值 - MyChart1 (用于显式导入值用例)
 exports:
   mychart1Data:
     mychart1appInfo:
@@ -18,7 +18,7 @@ exports:
       appDescription: Used for listing products    
 ```
 
-## Step-03: Review / Update Chart.yaml mychart1 dependency with import-values argument
+## 步骤-03: 查看/更新 Chart.yaml 中 mychart1 依赖的 import-values 参数
 
 ```yaml
 - name: mychart1
@@ -28,12 +28,12 @@ exports:
   tags: 
     - frontend
   import-values:
-    - mychart1Data # Explicit Values Import Usecase
+    - mychart1Data # 显式值导入用例
 ```
 
-## Step-04: Review / Update parentchart configmap.yaml
+## 步骤-04: 查看/更新 parentchart configmap.yaml
 
-- **File Location:** parentchart/templates/configmap.yaml
+- **文件位置:** parentchart/templates/configmap.yaml
 
 ```yaml
 apiVersion: v1
@@ -44,51 +44,51 @@ data:
 {{- toYaml .Values.mychart1appInfo | nindent 2 }}
 ```
 
-## Step-05: Import Values Explicit: Deploy and Verify
+## 步骤-05: 显式导入值：部署和验证
 
 ```bash
-# Change to Chart Directory
+# 切换到图表目录
 cd parentchart
 
-# Helm Install
+# Helm 安装
 helm install myapp1 . --atomic
 
-# Helm List
+# Helm 列表
 helm list
 
-# Helm Status
+# Helm 状态
 helm status myapp1 --show-resources
 
-# List k8s Deployments
+# 列出 k8s 部署
 kubectl get deploy
 
-# List k8s pods
+# 列出 k8s pods
 kubectl get pods
 
-# List k8s ConfigMaps
+# 列出 k8s ConfigMaps
 kubectl get cm
 kubectl get cm myapp1-parentchart-import-explicit -o yaml
-Observation:
-We should see the data exported from parentchart/charts/mychart1/values.yaml imported successfully to configmap in parentchart. 
+观察结果:
+我们应该看到从 parentchart/charts/mychart1/values.yaml 导出的数据成功导入到 parentchart 中的 configmap。
 
-# Helm Uninstall
+# Helm 卸载
 helm uninstall myapp1 
 ```
 
-## Step-06: Test when mychart1 is disabled
+## 步骤-06: 测试当 mychart1 被禁用时
 
 ```bash
-# Change to Chart Directory
+# 切换到图表目录
 cd parentchart
 
-# Helm Install
+# Helm 安装
 helm install myapp1 . --atomic --set tags.frontend=false
 
-# Review Configmap
+# 查看 Configmap
 kubectl get cm myapp1-parentchart-import-explicit -o yaml
-Observation:
-1. We should not see any data for configmap
+观察结果:
+1. 我们应该看不到 configmap 的任何数据
 
-# Helm Uninstall
+# Helm 卸载
 helm uninstall myapp1
 ```

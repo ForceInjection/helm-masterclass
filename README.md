@@ -1,81 +1,85 @@
-# Helm Masterclass: 50 Practical Demos for Kubernetes DevOps 
+# Helm 大师课：Kubernetes DevOps 的 50 个实践演示
 
+## 课程详情
 
-## Course Details
-- **Title:** [Helm Masterclass: 50 Practical Demos for Kubernetes DevOps](https://links.stacksimplify.com/helm-masterclass-kubernetes-devops)
-- **Subtitle:** Create, Develop, Install, Upgrade, Rollback, Package, and Publish Helm Charts with step-by-step practical demos.
+- **标题：** [Helm 大师课：Kubernetes DevOps 的 50 个实践演示](https://links.stacksimplify.com/helm-masterclass-kubernetes-devops)
+- **副标题：** 通过逐步实践演示来创建、开发、安装、升级、回滚、打包和发布 Helm Charts。
 
-## Course Modules
-01. Install Docker Desktop and HelmCLI
-02. Helm Install
-03. Helm Upgrade with set option
-04. Helm Upgrade with Chart Versions
-05. Helm Uninstall Keep History
-06. Helm Install Generated Name
-07. Helm Install Atomic
-08. Helm with Namespaces
-09. Helm Override Values
-10. Helm Chart Structure
-11. Helm Dev BuiltIn Objects
-12. Helm Dev Basics
-13. Helm Dev If Else EQ
-14. Helm Dev If Else AND BOOLEAN
-15. Helm Dev If Else OR
-16. Helm Dev If Else NOT
-17. Helm Dev WITH
-18. Helm Dev WITH If Else
-19. Helm Dev Variables
-20. Helm Dev Range List
-21. Helm Dev Range Dict
-22. Helm Dev Named Templates
-23. Helm Dev Printf Function
-24. Helm Dev call template in template
-25. Helm Create and Package Chart
-26. Helm Dependency
-27. Helm Dependency Alias
-28. Helm Dependency Condition
-29. Helm Dependency Condition Alias
-30. Helm Dependency Tags
-31. Helm Dependency Override Subchart Values
-32. Helm SubChart Global Values
-33. Helm Dependency Import Values Explicit
-34. Helm Dependency Import Values Implicit
-35. Helm Starters
-36. Helm Plugins
-37. Helm Plugins Build
-38. Helm Hooks
-39. Helm Hooks Delete Policy
-40. Helm Hook Weights
-41. Helm Tests
-42. Helm Resource Policy
-43. Helm Sign and Verify Charts
-44. Helm Repo on GitHub
-45. Integrate with ArtifactHub
-46. Helm Values Validate with JSON Schema
+## 课程模块
 
+01. 安装 Docker Desktop 和 HelmCLI
+02. Helm 安装
+03. 使用 set 选项进行 Helm 升级
+04. 使用 Chart 版本进行 Helm 升级
+05. Helm 卸载保留历史
+06. Helm 安装生成名称
+07. Helm 原子安装
+08. Helm 与命名空间
+09. Helm 覆盖值
+10. Helm Chart 结构
+11. Helm 开发内置对象
+12. Helm 开发基础
+13. Helm 开发 If Else EQ
+14. Helm 开发 If Else AND BOOLEAN
+15. Helm 开发 If Else OR
+16. Helm 开发 If Else NOT
+17. Helm 开发 WITH
+18. Helm 开发 WITH If Else
+19. Helm 开发变量
+20. Helm 开发 Range 列表
+21. Helm 开发 Range 字典
+22. Helm 开发命名模板
+23. Helm 开发 Printf 函数
+24. Helm 开发在模板中调用模板
+25. Helm 创建和打包 Chart
+26. Helm 依赖
+27. Helm 依赖别名
+28. Helm 依赖条件
+29. Helm 依赖条件别名
+30. Helm 依赖标签
+31. Helm 依赖覆盖子 Chart 值
+32. Helm 子 Chart 全局值
+33. Helm 依赖显式导入值
+34. Helm 依赖隐式导入值
+35. Helm 启动器
+36. Helm 插件
+37. Helm 插件构建
+38. Helm 钩子
+39. Helm 钩子删除策略
+40. Helm 钩子权重
+41. Helm 测试
+42. Helm 资源策略
+43. Helm 签名和验证 Charts
+44. GitHub 上的 Helm 仓库
+45. 与 ArtifactHub 集成
+46. 使用 JSON Schema 验证 Helm 值
+47. 使用基于 OCI 的注册表
 
-## What will students learn in your course?
-- You will master all 24 Helm commands, along with their respective subcommands and flags, through multiple practical demonstrations.
-- You will learn how to develop Helm Charts through 13 Helm development demos.
-- You will learn flow control actions such as If-else, With, and Range, in combination with functions like EQ, AND, BOOLEAN, OR, NOT, DEFAULT, and QUOTE.
-- You will learn to create, package, install, upgrade, rollback, and uninstall Helm Charts.
-- You will learn to implement Helm Dependency through 9 demos, which cover Alias, Condition, Tags, Global Values, and Import values.
-- You will learn Helm concepts such as starters, plugins, hooks, tests, resource policy, and Values JSON Schema through practical demos
-- You will learn to implement Helm Chart signing and verification.
-- You will learn how to create a Helm Repository on GitHub and integrate it with Artifact Hub. 
+## 学生将在课程中学到什么？
 
+- 您将通过多个实践演示掌握所有 24 个 Helm 命令，以及它们各自的子命令和标志。
+- 您将通过 13 个 Helm 开发演示学习如何开发 Helm Charts。
+- 您将学习流程控制操作，如 If-else、With 和 Range，结合 EQ、AND、BOOLEAN、OR、NOT、DEFAULT 和 QUOTE 等函数。
+- 您将学习创建、打包、安装、升级、回滚和卸载 Helm Charts。
+- 您将通过 9 个演示学习实现 Helm 依赖，涵盖别名、条件、标签、全局值和导入值。
+- 您将通过实践演示学习 Helm 概念，如启动器、插件、钩子、测试、资源策略和值 JSON Schema。
+- 您将学习实现 Helm Chart 签名和验证。
+- 您将学习如何在 GitHub 上创建 Helm 仓库并将其与 Artifact Hub 集成。
 
-## What are the requirements or prerequisites for taking your course?
-- You must have Kubernetes knowledge and experience to follow with me for hands-on activities.
+## 参加课程的要求或先决条件是什么？
 
-## Who is this course for?
-- This course is designed for students who have completed my AWS EKS, Azure AKS, or Google GKE Kubernetes courses.
-- Infrastructure Architects or Sysadmins or Developers or DevOps Engineers who are planning to master Helm.
+- 您必须具备 Kubernetes 知识和经验，才能跟随我进行实践活动。
 
-## Github Repositories used for this course
+## 这门课程适合谁？
+
+- 本课程专为已完成我的 AWS EKS、Azure AKS 或 Google GKE Kubernetes 课程的学生设计。
+- 计划掌握 Helm 的基础架构架构师、系统管理员、开发人员或 DevOps 工程师。
+
+## 本课程使用的 Github 仓库
+
 - [helm-masterclass](https://github.com/stacksimplify/helm-masterclass)
 - [helm-charts](https://github.com/stacksimplify/helm-charts)
 - [helm-charts-repo](https://github.com/stacksimplify/helm-charts-repo)
-- [Course Presentation](course-presentation)
+- [课程演示文稿](course-presentation)
 
-**Important Note:** Please go to these repositories and FORK these repositories and make use of them during the course.
+**重要提示：** 请访问这些仓库并 FORK 这些仓库，在课程期间使用它们。

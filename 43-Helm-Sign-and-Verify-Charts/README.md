@@ -1,48 +1,48 @@
-# Helm Charts Sign and Verify
+# Helm 图表签名和验证
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
 - [GnuPG](https://gnupg.org/)
-- Generating Private/Public Keys with gpg
-- Sign the Helm Package
-- Export public key
-- Verify Helm Package using Public Key
+- 使用 gpg 生成私钥/公钥
+- 签名 Helm 包
+- 导出公钥
+- 使用公钥验证 Helm 包
 
-## Step-02: Install gnupg
+## 步骤-02: 安装 gnupg
 
-### Step-02-01: Install gnupg on MacOS
+### 步骤-02-01: 在 MacOS 上安装 gnupg
 
-- [Install gnupg using homebrew](https://formulae.brew.sh/formula/gnupg)
+- [使用 homebrew 安装 gnupg](https://formulae.brew.sh/formula/gnupg)
 
 ```bash
-# Install gnupg on MacOS
+# 在 MacOS 上安装 gnupg
 brew install gnupg
 
-# Verify version
+# 验证版本
 gpg --version
 ```
 
-### Step-02-02: Install gnupg on WindowsOS
+### 步骤-02-02: 在 WindowsOS 上安装 gnupg
 
-- [Install gnupg on windows using chocolatey](https://community.chocolatey.org/packages/gnupg#individual)
+- [使用 chocolatey 在 windows 上安装 gnupg](https://community.chocolatey.org/packages/gnupg#individual)
 
 ```bash
-# Install gnupg on WindowsOS
+# 在 WindowsOS 上安装 gnupg
 choco install gnupg
 
-# Verify version
+# 验证版本
 gpg --version
 ```
 
-## Step-03: Generate Private/Public Key Pairs with gpg
+## 步骤-03: 使用 gpg 生成私钥/公钥对
 
 ```bash
-# List Keys
+# 列出密钥
 gpg --list-keys
 
-# Generating Private/Public Keys with gpg
+# 使用 gpg 生成私钥/公钥
 gpg --full-generate-key
--> kind of key: Select 1 (1) RSA and RSA
+-> kind of key: 选择 1 (1) RSA and RSA
 -> What keysize do you want? (3072) 
 -> Please specify how long the key should be valid.
 -> Key is valid for? (0) "0 = key does not expire"
@@ -53,71 +53,71 @@ gpg --full-generate-key
 -> Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
 -> Passphrase: helm1234
 
-# List Keys
+# 列出密钥
 gpg --list-keys
 
-# Convert new secret keyring to old format
+# 将新的秘密密钥环转换为旧格式
 gpg --export-secret-keys >~/.gnupg/helmsigndemo1-secring-privatekey.gpg
 Passphrase: helm1234
-Additional Notes:
-1. To sign charts, Helm currently prefers the older format. 
-2. Convert the new secret keyring format to the old format and store it in a file called secring.
+附加说明:
+1. 为了签名图表，Helm 目前更喜欢旧格式。
+2. 将新的秘密密钥环格式转换为旧格式并存储在名为 secring 的文件中。
 
-# Verify if file created
+# 验证文件是否创建
 ls ~/.gnupg/helmsigndemo1-secring-privatekey.gpg
 
-# Copy the private key to course directory
+# 将私钥复制到课程目录
 cd 43-Helm-Sign-and-Verify-Charts 
 cp ~/.gnupg/helmsigndemo1-secring-privatekey.gpg myhelmcharts/private-key/
 
-# Export private key with single command (instead of export in .gnupg folder and copy to private-key folder)
+# 使用单个命令导出私钥（而不是导出到 .gnupg 文件夹并复制到 private-key 文件夹）
 cd myhelmcharts
 gpg --export-secret-keys > private-key/helmsigndemo1-secring-privatekey.gpg
 ```
 
-## Step-03: Signing Helm Charts
+## 步骤-04: 签名 Helm 图表
 
 ```bash
-# Change Directory
+# 切换目录
 cd myhelmcharts
-1. we will have the "myfirstchart" helm chart folder
+1. 我们将拥有 "myfirstchart" helm 图表文件夹
 
-# Sign & Package Helm Chart 
+# 签名和打包 Helm 图表
 helm package --sign --key 'helmsigndemo1' --keyring private-key/helmsigndemo1-secring-privatekey.gpg myfirstchart/
 Passphrase: helm1234
 
-# Verify the Provenance file created
+# 验证创建的来源文件
 ls -lrta
-1. We should find the file "myfirstchart-2.0.0.tgz.prov" ending with ".prov"
+1. 我们应该找到以 ".prov" 结尾的文件 "myfirstchart-2.0.0.tgz.prov"
 ```
 
-## Step-04: Export Public Key
+## 步骤-05: 导出公钥
 
-- Verify integrity of chart using public key
-- In real-world scenario, these public keys will be published on keyservers (keyserver.ubuntu.com, keyserver.openpgp.com)
-- We should download these public keys to verify the integrity of the chart.
+- 使用公钥验证图表的完整性
+- 在现实世界的场景中，这些公钥将发布在密钥服务器上（keyserver.ubuntu.com、keyserver.openpgp.com）
+- 我们应该下载这些公钥来验证图表的完整性。
 
 ```bash
-# Change to Directory 
+# 切换到目录
 cd myhelmcharts
 
-# Export Public Key
+# 导出公钥
 gpg --export 'helmsigndemo1' > public-key/helmsigndemo1-publickey.gpg
 
-# Verify if file created
+# 验证文件是否创建
 ls public-key/helmsigndemo1-publickey.gpg
 ```
 
-## Step-05: Verify Helm Package using Public Key
+## 步骤-06: 使用公钥验证 Helm 包
 
 ```bash
-# Change Directory
+# 切换目录
 cd myhelmcharts
 
-# Helm Verify
+# Helm 验证
 helm verify --keyring public-key/helmsigndemo1-publickey.gpg myfirstchart-0.1.0.tgz
 
-## Sample Output
+## 示例输出
 Kalyans-Mac-mini:myhelmcharts kalyanreddy$ helm verify --keyring public-key/helmsigndemo1-publickey.gpg myfirstchart-0.1.0.tgz
 Signed by: helmsigndemo1 (Keys used to sign Helm Charts) <helmsigndemo1@gmail.com>
 Using Key With Fingerprint: 0494EA24668AE1516A31E5EC467D1996D2158381
@@ -125,46 +125,46 @@ Chart Hash Verified: sha256:099c8a0cd0609f0e252bd63856ea1998c55e4af1b587c435d4b7
 Kalyans-Mac-mini:myhelmcharts kalyanreddy$ 
 ```
 
-## Step-06: Verify Charts during helm install and Upgrade - Positive Test
+## 步骤-07: 在 helm install 和 Upgrade 期间验证图表 - 正面测试
 
 ```bash
-# Change Directory
+# 切换目录
 cd myhelmcharts
 
-# Helm Install with --verify 
+# 使用 --verify 进行 Helm 安装
 helm install myapp1 myfirstchart-0.1.0.tgz --verify --keyring public-key/helmsigndemo1-publickey.gpg --atomic
 
-# List Helm Release
+# 列出 Helm Release
 helm list
 
-# Helm Status
+# Helm 状态
 helm status --show-resources
 
-# Access Application
+# 访问应用程序
 http://localhost:31239
 
-# Helm Upgrade with --verify 
+# 使用 --verify 进行 Helm 升级
 helm upgrade myapp1 myfirstchart-0.1.0.tgz --verify --keyring public-key/helmsigndemo1-publickey.gpg --atomic --set image.tag="0.2.0"
 
-# Uninstall Helm Release
+# 卸载 Helm Release
 helm uninstall myapp1
 ```
 
-## Step-07: Verify Charts during helm install and Upgrade - Negative Test
+## 步骤-08: 在 helm install 和 Upgrade 期间验证图表 - 负面测试
 
 ```bash
-# Change Directory
+# 切换目录
 cd myhelmcharts
 
-# Create some dummy file in public-key folder
+# 在 public-key 文件夹中创建一些虚拟文件
 touch public-key/dummy-publickey.gpg
 
-# Helm Install with --verify 
+# 使用 --verify 进行 Helm 安装
 helm install myapp1 myfirstchart-0.1.0.tgz --verify --keyring public-key/dummy-publickey.gpg --atomic
-Observation:
-1. Should throw an error as below
+观察结果:
+1. 应该抛出如下错误
 
-## Sample Output
+## 示例输出
 Kalyans-Mac-mini:myhelmcharts kalyanreddy$ helm install myapp1 myfirstchart-0.1.0.tgz --verify --keyring public-key/dummy-publickey.gpg --atomic
 Error: INSTALLATION FAILED: openpgp: signature made by unknown entity
 Kalyans-Mac-mini:myhelmcharts kalyanreddy$ 

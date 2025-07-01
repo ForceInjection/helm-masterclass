@@ -1,12 +1,12 @@
-# Helm Dependency - Alias
+# Helm 依赖 - 别名
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Condition
-- Alias
-- Override subchart(child chart) values from parent chart
+- 条件
+- 别名
+- 从父 chart 覆盖子 chart（子图表）的值
 
-## Step-02: Update Parentchart CIP to NodePort Service
+## 步骤-02: 将父 Chart 的 ClusterIP 更新为 NodePort 服务
 
 ```yaml
 # values.yaml
@@ -15,9 +15,9 @@ service:
   port: 80
 ```
 
-## Step-03: Chart.yaml
+## 步骤-03: Chart.yaml
 
-- Understand the importance of `alias` when defining dependencies
+- 理解在定义依赖时 `alias` 的重要性
 
 ```yaml
 apiVersion: v2
@@ -41,42 +41,42 @@ dependencies:
   alias: childchart2
 ```
 
-## Step-04: Deploy and Test
+## 步骤-04: 部署和测试
 
 ```bash
-# Helm Dependency Update
+# Helm 依赖更新
 helm dependency update parentchart/
-or
+或
 helm dep update parentchart/
 
-# Helm Install
+# Helm 安装
 helm install myapp1 parentchart/ --atomic
 
-# Helm List
+# Helm 列表
 helm list
 
-# Helm Status
+# Helm 状态
 helm status myapp1 --show-resources
 
-# List Deployments
+# 列出部署
 kubectl get deploy
 
-# List Pods
+# 列出 Pod
 kubectl get pods
 
-# List Services
+# 列出服务
 kubectl get svc
 
-# Access Application
+# 访问应用程序
 parentchart: http://localhost:<port-from-get-svc-output>
 childchart4dev: http://localhost:<port-from-get-svc-output>
 childchart4qa: http://localhost:<port-from-get-svc-output>
 mychart2: http://localhost:31232
 ```
 
-## Step-05: Uninstall Helm Release
+## 步骤-05: 卸载 Helm 发布
 
 ```bash
-# Helm Uninstall
+# Helm 卸载
 helm uninstall myapp1
 ```

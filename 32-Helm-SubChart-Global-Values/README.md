@@ -1,11 +1,11 @@
-# Helm Sub Charts - Use Global Values in Sub Charts
+# Helm 子 Chart - 在子 Chart 中使用全局值
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Managing Dependencies manually
-- Define Global Values
+- 手动管理依赖
+- 定义全局值
 
-## Step-02: Review Chart.yaml
+## 步骤-02: 查看 Chart.yaml
 
 ```yaml
 apiVersion: v2
@@ -29,92 +29,92 @@ dependencies:
     - backend
 ```
 
-## Step-03: Pull charts using helm pull command
+## 步骤-03: 使用 helm pull 命令拉取 chart
 
-- We are going to pull the charts to `parentchart/charts` directory using `helm pull` command
-- Also ensure that those packages are untarred or unzipped
+- 我们将使用 `helm pull` 命令将 chart 拉取到 `parentchart/charts` 目录
+- 同时确保这些包被解压或解压缩
 
 ```bash
-# Change Directory
+# 切换目录
 cd parentchart/charts
 
-# Helm Pull MyChart4
+# Helm 拉取 MyChart4
 helm pull https://stacksimplify.github.io/helm-charts/mychart4-0.1.0.tgz --untar
 
-# Helm Pull MyChart2
+# Helm 拉取 MyChart2
 helm pull https://stacksimplify.github.io/helm-charts/mychart2-0.4.0.tgz --untar
 
-# Remove package files .tgz files
+# 删除包文件 .tgz 文件
 rm -rf *.tgz
 ```
 
-## Step-04: To Build or Package Sub Charts
+## 步骤-04: 构建或打包子 Chart
 
 ```bash
-# Change to Chart Directory
+# 切换到 Chart 目录
 cd parentchart
 
-# Helm Dependency list
+# Helm 依赖列表
 helm dependency list
 
-## Sample Outout
+## 示例输出
 Kalyans-MacBook-Pro:parentchart kalyan$ helm dependency list
 NAME     VERSION REPOSITORY              STATUS  
 mychart4 0.1.0   file://charts/mychart4  unpacked
 mychart2 0.4.0   file://charts/mychart2 unpacked
 
-# Helm Dependency Update / Build
+# Helm 依赖更新/构建
 helm dependency update
 
-# Review charts folder
+# 查看 charts 文件夹
 ls charts/
-Observation: you should find *.tgz files for both charts
+观察结果: 你应该找到两个 chart 的 *.tgz 文件
 
-> # helm dep list should show status as OK
+> # helm dep list 应该显示状态为 OK
 Kalyans-MacBook-Pro:parentchart kalyan$ helm dep list
 NAME     VERSION REPOSITORY             STATUS
 mychart4 0.1.0   file://charts/mychart4 ok    
 mychart2 0.4.0   file://charts/mychart2 ok  
 
 
-# Delete subchart tgz files
+# 删除子 chart tgz 文件
 rm charts/*.tgz
 ```
 
-## Step-05: Define Global value in Parent Chart values.yaml
+## 步骤-05: 在父 Chart values.yaml 中定义全局值
 
-- **File:** parentchart/values.yaml
+- **文件:** parentchart/values.yaml
 
 ```yaml
-# Define Global Values
+# 定义全局值
 global:
   replicaCount: 4
 ```
 
-## Step-06: Update Parent Chart and Sub Chart deployment.yaml
+## 步骤-06: 更新父 Chart 和子 Chart 的 deployment.yaml
 
-- **File:** parentchart/templates/deployment.yaml
-- **File:** charts/mychart4/templates/deployment.yaml
-- **File:** charts/mychart2/templates/deployment.yaml
+- **文件:** parentchart/templates/deployment.yaml
+- **文件:** charts/mychart4/templates/deployment.yaml
+- **文件:** charts/mychart2/templates/deployment.yaml
 
 ```yaml
 replicas: {{ .Values.global.replicaCount }}
 ```
 
-## Step-07: Test Global Values
+## 步骤-07: 测试全局值
 
 ```bash
-# Change to Chart Directory
+# 切换到 Chart 目录
 cd parentchart
 
-# Helm Install
+# Helm 安装
 helm install myapp1 . --atomic
 
-# Verify Pods for all 3 charts
+# 验证所有 3 个 chart 的 Pod
 kubectl get pods
-Observation: 
-All 3 charts should spin 4 pods per each based on ".Values.global.replicaCount=4"
+观察结果: 
+基于 ".Values.global.replicaCount=4"，所有 3 个 chart 都应该启动 4 个 pod
 
-# helm uninstall
+# helm 卸载
 helm uninstall myapp1
 ```

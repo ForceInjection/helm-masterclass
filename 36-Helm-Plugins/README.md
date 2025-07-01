@@ -98,18 +98,18 @@ helm plugin install https://github.com/komodorio/helm-dashboard.git
 # Start Helm Plugin: dashboard
 helm dashboard
 
-# Review Dashboard Concepts
-1. Clusters
-2. Installed Charts
+# 查看 Dashboard 概念
+1. 集群
+2. 已安装的图表
     - Release: dev101 
-        - Resources
-        - Manifests
-        - Values
-        - Notes
-    - Revision: 1, 2, 3 
-    - Revision Differences
-3. Repository
-4. Logout 
+        - 资源
+        - 清单
+        - 值
+        - 说明
+    - 修订版本: 1, 2, 3 
+    - 修订版本差异
+3. 仓库
+4. 注销 
 ```
 
 ## Step-07: Uninstall Releases

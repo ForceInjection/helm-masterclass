@@ -1,82 +1,82 @@
-# Helm Hooks Delete Policy
+# Helm 钩子删除策略
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Implement Helm Hooks deletion policy
+- 实现 Helm 钩子删除策略
 
-## Step-02: List Kubernetes Pods
+## 步骤-02: 列出 Kubernetes Pods
 
-- **Important Note:** We are in continuation to the previous demo
+- **重要说明:** 我们继续之前的演示
 
 ```bash
-# List Kuberentes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation:
-1. We should see hook pods were in completed state but not removed
-2. How do we need to remove them ?
-Option-1: Manually delete them
-Option-2: Use Helm Hook Deletion Policies
+观察结果:
+1. 我们应该看到钩子 pod 处于完成状态但没有被移除
+2. 我们需要如何移除它们？
+选项-1: 手动删除它们
+选项-2: 使用 Helm 钩子删除策略
 ```
 
-## Step-03: What are Helm Hook Deletion Policies ?
+## 步骤-03: 什么是 Helm 钩子删除策略？
 
-1. We can define when to delete the hook resources using Hook Deletion Policies
-2. **before-hook-creation:** Delete the previous resource before a new hook is launched (default)
-3. **hook-succeeded:** Delete the resource after the hook is successfully executed
-4. **hook-failed:** Delete the resource if the hook failed during execution
+1. 我们可以使用钩子删除策略定义何时删除钩子资源
+2. **before-hook-creation:** 在启动新钩子之前删除之前的资源（默认）
+3. **hook-succeeded:** 在钩子成功执行后删除资源
+4. **hook-failed:** 如果钩子在执行期间失败则删除资源
 
 ```yaml
 annotations:
   "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded, hook-failed
 ```
 
-## Step-04: Deploy new Helm Release
+## 步骤-04: 部署新的 Helm Release
 
 ```bash
-# Change Directory (In Helm Chart Folder)
+# 切换目录 (在 Helm 图表文件夹中)
 cd hooksdemo1
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation: Make a note of pods running age before installing new release
+观察结果: 在安装新 release 之前记录 pod 运行的时间
 
-# Install Helm Release
+# 安装 Helm Release
 helm install myapp101 . 
 
-# List Helm Release
+# 列出 Helm Release
 helm list
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation:
-1. We should see "myhook-preinstall" pod just got deleted and recreated
-2. How does this happen ?
-3. For Helm Hook deletion policy, even though it is not defined in our hookpod yaml files, "before-hook-creation" is a default value which got triggered. So the old hook pod is deleted and new one created during "helm install" 
+观察结果:
+1. 我们应该看到 "myhook-preinstall" pod 刚刚被删除并重新创建
+2. 这是如何发生的？
+3. 对于 Helm 钩子删除策略，即使在我们的 hookpod yaml 文件中没有定义，"before-hook-creation" 是一个默认值，它被触发了。所以在 "helm install" 期间，旧的钩子 pod 被删除，新的被创建
 
 "helm.sh/hook-delete-policy": before-hook-creation
-before-hook-creation:Delete the previous resource before a new hook is launched (default) 
+before-hook-creation: 在启动新钩子之前删除之前的资源（默认）
 ```
 
-## Step-05: Uninstall Helm Release and clean-up
+## 步骤-05: 卸载 Helm Release 并清理
 
-- We are going uninstall helm release and clean-up all hook pods before testing the hook delete policy changes we added.
+- 我们将卸载 helm release 并在测试我们添加的钩子删除策略更改之前清理所有钩子 pod。
 
 ```bash
-# Uninstall Helm Release
+# 卸载 Helm Release
 helm uninstall myapp101
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
 
-# Delete Hook pods
+# 删除钩子 pods
 kubectl delete pod myhook-preinstall
 kubectl delete pod myhook-preupgrade
 kubectl delete pod myhook-postdelete
 ```
 
-## Step-06: Update hookpod yaml files with below Hook Deletion Policy
+## 步骤-06: 使用以下钩子删除策略更新 hookpod yaml 文件
 
-- Update below 3 files with annotation `helm.sh/hook-delete-policy`
+- 使用注解 `helm.sh/hook-delete-policy` 更新以下 3 个文件
 - preinstall-hookpod.yaml
 - preupgrade-hookpod.yaml
 - postdelete-hookpod.yaml
@@ -85,57 +85,57 @@ kubectl delete pod myhook-postdelete
   "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 ```
 
-## Step-07: Install Helm Release and Test Hook Deletion Policy
+## 步骤-07: 安装 Helm Release 并测试钩子删除策略
 
 ```bash
-# Change Directory (In Helm Chart Folder)
+# 切换目录 (在 Helm 图表文件夹中)
 cd hooksdemo1
 
-# Install Helm Release
+# 安装 Helm Release
 helm install myapp101 .
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation: 
-1. We should not see "myhook-preinstall" pod
-2. It got created, completed and deleted as we have provided "hook-succeeded" in "helm.sh/hook-delete-policy"
+观察结果: 
+1. 我们应该看不到 "myhook-preinstall" pod
+2. 它被创建、完成并删除，因为我们在 "helm.sh/hook-delete-policy" 中提供了 "hook-succeeded"
 ```
 
-## Step-08: Upgrade Helm Release and Test Hook Deletion Policy
+## 步骤-08: 升级 Helm Release 并测试钩子删除策略
 
 ```bash
-# Change Directory (In Helm Chart Folder)
+# 切换目录 (在 Helm 图表文件夹中)
 cd hooksdemo1
 
-# Upgrade Helm Release
+# 升级 Helm Release
 helm upgrade myapp101 . --set image.tag=0.2.0
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation: 
-1. We should not see "myhook-preupgrade" pod
-2. It got created, completed and deleted as we have provided "hook-succeeded" in "helm.sh/hook-delete-policy"
+观察结果: 
+1. 我们应该看不到 "myhook-preupgrade" pod
+2. 它被创建、完成并删除，因为我们在 "helm.sh/hook-delete-policy" 中提供了 "hook-succeeded"
 ```
 
-## Step-09: Uninstall Helm Release and Test Hook Deletion Policy
+## 步骤-09: 卸载 Helm Release 并测试钩子删除策略
 
 ```bash
-# Change Directory (In Helm Chart Folder)
+# 切换目录 (在 Helm 图表文件夹中)
 cd hooksdemo1
 
-# Uninstall Helm Release
+# 卸载 Helm Release
 helm uninstall myapp101 
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation: 
-1. We should not see "myhook-postdelete" pod
-2. It got created, completed and deleted as we have provided "hook-succeeded" in "helm.sh/hook-delete-policy"
+观察结果: 
+1. 我们应该看不到 "myhook-postdelete" pod
+2. 它被创建、完成并删除，因为我们在 "helm.sh/hook-delete-policy" 中提供了 "hook-succeeded"
 ```
 
-## Step-10: Downside of using hook-failed
+## 步骤-10: 使用 hook-failed 的缺点
 
-1. **hook-failed:** Delete the resource if the hook failed during execution
-2. The downside of this during Chart Development phase is, when our hook fails and its resource deleted, we will not have an option to troubleshoot.
-3. If we don't use `hook-failed` our resource created will be present and we can describe that resource, review events and troubleshoot.
-4. This is not a recommendation, just my personal observation.
+1. **hook-failed:** 如果钩子在执行期间失败则删除资源
+2. 在图表开发阶段的缺点是，当我们的钩子失败并且其资源被删除时，我们将没有选项进行故障排除。
+3. 如果我们不使用 `hook-failed`，我们创建的资源将存在，我们可以描述该资源、查看事件并进行故障排除。
+4. 这不是建议，只是我的个人观察。

@@ -1,25 +1,25 @@
-# Helm Development - Flow Control If-Else
+# Helm 开发 - 流程控制 If-Else
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- We can use `if/else` for creating conditional blocks in Helm Templates
-- **eq:** For templates, the operators (eq, ne, lt, gt, and, or and so on) are all implemented as functions.
-- In pipelines, operations can be grouped with parentheses ((, and )).
-- [Additional Reference: Operators are functions](https://helm.sh/docs/chart_template_guide/functions_and_pipelines/#operators-are-functions)
+- 我们可以使用 `if/else` 在 Helm 模板中创建条件块
+- **eq:** 对于模板，运算符（eq、ne、lt、gt、and、or 等）都作为函数实现。
+- 在管道中，操作可以用括号（(, 和 )）分组。
+- [附加参考: 运算符是函数](https://helm.sh/docs/chart_template_guide/functions_and_pipelines/#operators-are-functions)
 
-### IF-ELSE Syntax
+### IF-ELSE 语法
 
 ```bash
 {{ if PIPELINE }}
-  # Do something
+  # 做某事
 {{ else if OTHER PIPELINE }}
-  # Do something else
+  # 做其他事
 {{ else }}
-  # Default case
+  # 默认情况
 {{ end }}
 ```
 
-## Step-02: Review values.yaml
+## 步骤-02: 查看 values.yaml
 
 ```yaml
 # If, else if, else
@@ -27,17 +27,17 @@ myapp:
   env: prod
 ```
 
-## Step-03: Logic and Flow Control Function: and
+## 步骤-03: 逻辑和流程控制函数: not
 
-- [Logic and Flow Control Functions](https://helm.sh/docs/chart_template_guide/function_list/#logic-and-flow-control-functions)
-- **not:**  Returns the boolean negation of its argument.
+- [逻辑和流程控制函数](https://helm.sh/docs/chart_template_guide/function_list/#logic-and-flow-control-functions)
+- **not:** 返回其参数的布尔否定。
 
 ```bash
-# and Syntax
+# not 语法
 not .Arg
 ```
 
-## Step-04: Implement if-else for replicas with OR
+## 步骤-04: 使用 NOT 为副本数实现 if-else
 
 ```yaml
 apiVersion: apps/v1
@@ -67,10 +67,10 @@ spec:
         - containerPort: 80
 ```
 
-## Step-05: Verify if-else
+## 步骤-05: 验证 if-else
 
 ```bash
-# Change to Chart Directory
+# 切换到 Chart 目录
 cd helmbasics
 
 # Helm Template
@@ -78,15 +78,15 @@ helm template myapp1 . --set myapp.env=prod
 helm template myapp1 . --set myapp.env=dev
 helm template myapp1 . --set myapp.env=null
 
-# Helm Install Dry-run 
+# Helm 安装 Dry-run
 helm install myapp1 . --dry-run
 
-# Helm Install
+# Helm 安装
 helm install myapp1 . --atomic
 
-# Verify Pods
+# 验证 Pods
 helm status myapp1 --show-resources
 
-# Uninstall Release
+# 卸载 Release
 helm uninstall myapp1
 ```

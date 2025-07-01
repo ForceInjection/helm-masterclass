@@ -1,20 +1,23 @@
-# Helm Subcharts - Dependency Command
+# Helm 子图表 - 依赖命令
 
-## Step-01: Introduction
-- Create Parent Chart
+## 步骤-01: 介绍
+
+- 创建父图表
 - helm dependency list
 - helm dependency update
 - helm dependency build
-- helm dependency version constraints
-- helm dependency repository @REPO vs REPO-URL
+- helm dependency 版本约束
+- helm dependency 仓库 @REPO vs REPO-URL
 
-## Step-02: Create Parent Chart
+## 步骤-02: 创建父图表
+
 ```bash
-# Create Parent Chart
+# 创建父图表
 helm create parentchart
 ```
 
-## Step-03: Update Helm Dependencies in Parent Chart Chart.yaml
+## 步骤-03: 在父图表 Chart.yaml 中更新 Helm 依赖
+
 ```yaml
 apiVersion: v2
 name: parentchart
@@ -34,51 +37,58 @@ dependencies:
   repository: "https://charts.bitnami.com/bitnami"
 ```
 
-## Step-04: Helm Dependency Commands - List and Update
-- **helm dependency list:** List all of the dependencies declared in a chart.
-- **helm dependency update:** update parent chart `charts/` folded based on the contents of file `Chart.yaml`
+## 步骤-04: Helm 依赖命令 - 列表和更新
+
+- **helm dependency list:** 列出图表中声明的所有依赖项。
+- **helm dependency update:** 基于 `Chart.yaml` 文件的内容更新父图表的 `charts/` 文件夹
+
 ```bash
-# Helm Dependency List
+# Helm 依赖列表
 helm dependency list
-Observation: 
-You should see status "missing" because we still didnt do helm dependency update
+观察结果: 
+您应该看到状态为 "missing"，因为我们还没有执行 helm dependency update
 
-# Verify Charts folder in parentchart
+# 验证 parentchart 中的 Charts 文件夹
 ls parentchart/charts
-Observation: it should be empty. Dependency subcharts not downloaded
+观察结果: 应该是空的。依赖子图表尚未下载
 
-# Helm Dependency Update
+# Helm 依赖更新
 helm dependency update CHART-NAME
 helm dependency update parentchart/
 ls parentchart/charts
-Observation: 
-1. We should see both charts (mychart1-0.1.0.tgz, mychart2-0.4.0.tgz, mysql-9.9.0.tgz)downloaded to "parentchart/charts" folder
-2. We should see "Chart.lock" file in "parentchart" folder
+观察结果: 
+1. 我们应该看到所有图表 (mychart1-0.1.0.tgz, mychart2-0.4.0.tgz, mysql-9.9.0.tgz) 下载到 "parentchart/charts" 文件夹
+2. 我们应该在 "parentchart" 文件夹中看到 "Chart.lock" 文件
 
-# Review Chart.lock file
+# 查看 Chart.lock 文件
 cat parentchart/Chart.lock 
 
-# Helm Dependency list
+# Helm 依赖列表
 helm dependency list parentchart/
-Observation: Should see status as "OK"
+观察结果: 应该看到状态为 "OK"
 ```
 
-## Step-05: Helm Dependency Chart Version Ranges
-- Updates to parent chart `Chart.yaml`
+## 步骤-05: Helm 依赖图表版本范围
 
-### Step-05-01: Helm Chart Version Notation
+- 更新父图表 `Chart.yaml`
+
+### 步骤-05-01: Helm 图表版本表示法
+
 ```bash
-Helm Chart Version Notation: Major.Minor.Patch 
-MySQL Helm Chart Version: 9.10.8
+Helm 图表版本表示法: Major.Minor.Patch 
+MySQL Helm 图表版本: 9.10.8
 Major: 9
 Minor: 10
 Patch: 8
 ```
-### Step-05-02: Basic Comparison Operators
-- We can define the version constraints using basic comparison operators
-- Where possible, use version ranges instead of pinning to an exact version.
+
+### 步骤-05-02: 基本比较运算符
+
+- 我们可以使用基本比较运算符定义版本约束
+- 在可能的情况下，使用版本范围而不是固定到确切版本。
+
 ```bash
-# Basic Comparison Operators
+# 基本比较运算符
 version: "= 9.10.8" 
 version: "!= 9.10.8" 
 version: ">= 9.10.8"
@@ -88,88 +98,98 @@ version: "< 9.10.8"
 version: ">= 9.10.8 < 9.11.0"  
 ```
 
-### Step-05-03: For Range Comparison Major: Caret Symbol(ˆ)
-- `x` is a placeholder
-- The caret (^) operator is for major level changes once a stable (1.0.0) release has occurred.
+### 步骤-05-03: 主版本范围比较: 插入符号(ˆ)
+
+- `x` 是占位符
+- 插入符号 (^) 运算符用于在稳定版本 (1.0.0) 发布后的主版本级别更改。
+
 ```bash
-# For Range Comparison Major: Caret Symbol(ˆ)
-^9.10.1  is equivalent to >= 9.10.1, < 10.0.0
-^9.10.x  is equivalent to >= 9.10.0, < 10.0.0   
-^9.10    is equivalent to >= 9.10, < 10
-^9.x     is equivalent to >= 9.0.0, < 10        
-^0       is equivalent to >= 0.0.0, < 1.0.0
+# 主版本范围比较: 插入符号(ˆ)
+^9.10.1  等同于 >= 9.10.1, < 10.0.0
+^9.10.x  等同于 >= 9.10.0, < 10.0.0   
+^9.10    等同于 >= 9.10, < 10
+^9.x     等同于 >= 9.0.0, < 10        
+^0       等同于 >= 0.0.0, < 1.0.0
 ```
 
-### Step-05-05: For Range Comparison Minor: Tilde Symbol(~)
-- `x` is a placeholder
-- The tilde (~) operator is for 
-  - patch level ranges when a minor version is specified 
-  - major level changes when the minor number is missing. 
-- The suggested default is to use a patch-level version match which is first one in the below table 
+### 步骤-05-05: 次版本范围比较: 波浪号符号(~)
+
+- `x` 是占位符
+- 波浪号 (~) 运算符用于
+  - 当指定次版本时的补丁级别范围
+  - 当缺少次版本号时的主版本级别更改。
+- 建议的默认值是使用补丁级别版本匹配，这是下表中的第一个
+
 ```bash
-# For Range Comparison Major: Caret Symbol(ˆ)
-~9.10.1  is equivalent to >= 9.10.1, < 9.11.0 # Patch-level version match
-~9.10    is equivalent to >= 9.10, < 9.11
-~9       is equivalent to >= 9, < 10
-^9.x     is equivalent to >= 9.0.0, < 10        
-^0       is equivalent to >= 0.0.0, < 1.0.0
+# 次版本范围比较: 波浪号符号(~)
+~9.10.1  等同于 >= 9.10.1, < 9.11.0 # 补丁级别版本匹配
+~9.10    等同于 >= 9.10, < 9.11
+~9       等同于 >= 9, < 10
+^9.x     等同于 >= 9.0.0, < 10        
+^0       等同于 >= 0.0.0, < 1.0.0
 ```
-### Step-05-06: Verify with some examples
+
+### 步骤-05-06: 通过一些示例进行验证
+
 ```yaml
 dependencies:
 - name: mysql
   version:" "9.10.9"
-  #version: ">=9.10.1" # Should dowload latest version available as on that day
-  #version: "<=9.10.6" # Should download 9.10.6 mysql helm chart package
-  #version: "~9.9.0" # Should download latest from 9.9.x (Patch version) 
-  #version: "~9.9" # Should download latest from 9.9 
-  #version: "~9" # Should download latest from 9.x 
+  #version: ">=9.10.1" # 应该下载当天可用的最新版本
+  #version: "<=9.10.6" # 应该下载 9.10.6 mysql helm chart 包
+  #version: "~9.9.0" # 应该从 9.9.x (补丁版本) 下载最新版本
+  #version: "~9.9" # 应该从 9.9 下载最新版本
+  #version: "~9" # 应该从 9.x 下载最新版本
   repository: "https://charts.bitnami.com/bitnami"
 
 
 # helm dependency update
 helm dependency update
-or
+或
 helm dep update  
 ```
 
-## Step-06: Helm Dependency Build Command
-- **helm dependency build:** rebuild the `charts/` directory based on the `Chart.lock` file
-- In short `dep update` command will negotiate with version constraints defined in `Chart.yaml` where as `dep build` will try to build or download or update whatever version preset in `Chart.lock` file
-- If no lock file is found, `helm dependency build` will mirror the behavior of `helm dependency update`.
+## 步骤-06: Helm 依赖构建命令
+
+- **helm dependency build:** 基于 `Chart.lock` 文件重建 `charts/` 目录
+- 简而言之，`dep update` 命令将与 `Chart.yaml` 中定义的版本约束协商，而 `dep build` 将尝试构建、下载或更新 `Chart.lock` 文件中预设的任何版本
+- 如果找不到锁定文件，`helm dependency build` 将镜像 `helm dependency update` 的行为。
+
 ```bash
 # helm dependency build
 helm dependency build CHART-NAME
 helm dependency build parentchart
 ```
 
-## Step-07: Helm Dependency Repository @REPO vs REPO-URL
-- When we are using Helm with DevOps pipelines across environments "@REPO" approach is not recommended
-- REPO-URL approach (repository: "https://charts.bitnami.com/bitnami") is always recommended
+## 步骤-07: Helm 依赖仓库 @REPO vs REPO-URL
+
+- 当我们在跨环境的 DevOps 流水线中使用 Helm 时，不推荐使用 "@REPO" 方法
+- 始终推荐使用 REPO-URL 方法 (repository: "<https://charts.bitnami.com/bitnami>")
+
 ```bash
-# With Repository URL (Recommended approach)
+# 使用仓库 URL (推荐方法)
 dependencies:
 - name: mysql
   version: ">=9.10.8"
   repository: "https://charts.bitnami.com/bitnami"
 
-# List Helm Repo
+# 列出 Helm 仓库
 helm repo list
 helm search repo bitnami/mysql --versions
 
-# With @REPO (local repo reference - NOT RECOMMENDED)
+# 使用 @REPO (本地仓库引用 - 不推荐)
 dependencies:
 - name: mysql
   version: ">=9.10.8"
   repository: "@bitnami"
 
-# Clean-Up Charts folder and Chart.lock
+# 清理 Charts 文件夹和 Chart.lock
 rm parentchart/charts/*
 rm parentchart/Chart.lock
 
-# Ensure we are using repository: "@bitnami"
+# 确保我们使用 repository: "@bitnami"
 helm dependency update
 ls parentchart/charts/
 cat parentchart/Chart.lock
-Observation: Should work as expected
+观察结果: 应该按预期工作
 ```

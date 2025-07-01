@@ -1,46 +1,46 @@
-# Build Helm Plugin
+# Helm 插件 - 构建
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- [Building Helm Plugins](https://helm.sh/docs/topics/plugins/#building-plugins)
-- We will build 3 simple plugins and test
+- [构建 Helm 插件](https://helm.sh/docs/topics/plugins/#building-plugins)
+- 我们将构建 3 个简单的插件并测试
 
-## Step-02: Create myplugin1 with env command -  Install and Verify
+## 步骤-02: 使用 env 命令创建 myplugin1 - 安装和验证
 
 ```bash
 # myplugin1
 name: "myplugin1"
 version: "0.1.0"
-usage: "Printss Helm Environment Variables"
+usage: "打印 Helm 环境变量"
 description: |-
-  Prints Helm Environment Variables
+  打印 Helm 环境变量
 command: "env"
 
-# List Helm Plugins
+# 列出 Helm 插件
 helm plugin list
 
-# Install Helm Plugin
+# 安装 Helm 插件
 helm plugin install myplugin1/
 
-# List Helm Plugins
+# 列出 Helm 插件
 helm plugin list
 
-# Run Helm Plugin
+# 运行 Helm 插件
 helm <PLUGIN-NAME>
 helm myplugin1
 
-# Observation
-Prints Helm environment variables
+# 观察结果
+打印 Helm 环境变量
 ```
 
-## Step-03: Create myplugin2 with platformCommand -  Install and Verify
+## 步骤-03: 使用 platformCommand 创建 myplugin2 - 安装和验证
 
 ```bash
 # myplugin2
 name: "myplugin2"
 version: "0.1.0"
 usage: "helm myplugin2"
-description: "Print Helm plugin directory"
+description: "打印 Helm 插件目录"
 command: echo my helm plugin directory is $HELM_PLUGINS default command
 platformCommand:
   - os: linux
@@ -53,58 +53,58 @@ platformCommand:
     arch: amd64
     command: "echo my helm plugin directory is $HELM_PLUGINS os is windows amd64"
 
-# List Helm Plugins
+# 列出 Helm 插件
 helm plugin list
 
-# Install Helm Plugin
+# 安装 Helm 插件
 helm plugin install myplugin2/
 
-# List Helm Plugins
+# 列出 Helm 插件
 helm plugin list
 
-# Run Helm Plugin
+# 运行 Helm 插件
 helm <PLUGIN-NAME>
 helm myplugin2
 
-# Observation
-Should execute the command from Default command section because we are running this on MacOS desktop which is not present in "platformCommand"
+# 观察结果
+应该执行默认命令部分的命令，因为我们在 MacOS 桌面上运行，而它不在 "platformCommand" 中
 ```
 
-## Step-04: Create myplugin3 with shell script - Install and Verify
+## 步骤-04: 使用 shell 脚本创建 myplugin3 - 安装和验证
 
 ```bash
 # myplugin3
 name: "myplugin3"
 version: "0.1.0"
 usage: "helm myplugin3"
-description: "Print Helm plugin directory using script app.sh"
+description: "使用脚本 app.sh 打印 Helm 插件目录"
 command: "$HELM_PLUGIN_DIR/app.sh"
 
 # app.sh
 #!/bin/sh
 echo "my helm plugin directory is $HELM_PLUGINS from SHELL SCRIPT"
 
-# List Helm Plugins
+# 列出 Helm 插件
 helm plugin list
 
-# Install Helm Plugin
+# 安装 Helm 插件
 helm plugin install myplugin3/
 
-# List Helm Plugins
+# 列出 Helm 插件
 helm plugin list
 
-# Run Helm Plugin
+# 运行 Helm 插件
 helm <PLUGIN-NAME>
 helm myplugin3
 
-# Observation
-We will see "app.sh" executed successfully
+# 观察结果
+我们将看到 "app.sh" 成功执行
 ```
 
-## Step-05: Uninstall Plugins
+## 步骤-05: 卸载插件
 
 ```bash
-# Uninstall Helm Plugins
+# 卸载 Helm 插件
 helm plugin uninstall <PLUGIN-NAME>
 helm plugin uninstall myplugin1
 helm plugin uninstall myplugin2

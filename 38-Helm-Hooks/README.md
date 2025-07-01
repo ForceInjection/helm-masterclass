@@ -1,21 +1,21 @@
-# Helm Hooks
+# Helm 钩子
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Understand Helm Hooks
+- 理解 Helm 钩子
 
-## Step-02: Create a simple Chart from Starter Chart
+## 步骤-02: 从启动器图表创建简单图表
 
-- **Important Note:** This step is optional for you because you will have all the Chart files and folders ready for you to implement hooksdemo1 in this respective section
+- **重要说明:** 这一步对您来说是可选的，因为您将拥有所有图表文件和文件夹，可以在相应部分实现 hooksdemo1
 
 ```bash
-# Create Helm Chart from starter chart
+# 从启动器图表创建 Helm 图表
 helm create hooksdemo1 --starter=mystarterchart
 ```
 
-## Step-03: Create/Review pre-install Hook
+## 步骤-03: 创建/查看 pre-install 钩子
 
-- **File Location:** templates/preinstall-hookpod.yaml
+- **文件位置:** templates/preinstall-hookpod.yaml
 
 ```yaml
 apiVersion: v1
@@ -33,9 +33,9 @@ spec:
       command:  ['sh', '-c', 'echo Pre-install hook Pod is running && sleep 15']      
 ```
 
-## Step-04: Create/Review pre-upgrade hook
+## 步骤-04: 创建/查看 pre-upgrade 钩子
 
-- **File Location:** templates/preupgrade-hookpod.yaml
+- **文件位置:** templates/preupgrade-hookpod.yaml
 
 ```yaml
 apiVersion: v1
@@ -53,9 +53,9 @@ spec:
       command:  ['sh', '-c', 'echo preupgrade hook Pod is running && sleep 15']       
 ```
 
-## Step-05: Create/Review post-delete hook
+## 步骤-05: 创建/查看 post-delete 钩子
 
-- **File Location:** templates/postdelete-hookpod.yaml
+- **文件位置:** templates/postdelete-hookpod.yaml
 
 ```yaml
 apiVersion: v1
@@ -73,90 +73,90 @@ spec:
       command:  ['sh', '-c', 'echo post-delete hook Pod is running && sleep 15']
 ```
 
-## Step-06: Test Helm Hook: pre-install
+## 步骤-06: 测试 Helm 钩子: pre-install
 
 ```bash
-# Change Directory (In Helm Chart Folder)
+# 切换目录 (在 Helm 图表文件夹中)
 cd hooksdemo1
 
-# Install Helm Release
+# 安装 Helm Release
 helm install myapp101 . --atomic
 
-# List Helm Release
+# 列出 Helm Release
 helm list
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation:
-1. We should see "myhook-preinstall" pod which should be completed status
+观察结果:
+1. 我们应该看到 "myhook-preinstall" pod，它应该是完成状态
 
-# Describe Pod
+# 描述 Pod
 kubectl describe pod myhook-preinstall
 
-# Verify Pod Start and Finish Times
+# 验证 Pod 开始和结束时间
 kubectl get pods
 kubectl describe pod myhook-preinstall | grep -E 'Anno|Started:|Finished:'
 kubectl describe pod myapp101-hooksdemo1-65b7c4d5b9-2rqfx | grep -E 'Anno|Started:|Finished:'
 
-# Access Application
+# 访问应用程序
 kubectl get svc
 http://localhost:31239
-Observation: We should see V1 version of application
+观察结果: 我们应该看到应用程序的 V1 版本
 ```
 
-## Step-07: Hooks and the Release Lifecycle
+## 步骤-07: 钩子和 Release 生命周期
 
-1. Lets say for `helm install` lifecycle we have defined two hooks `pre-install` and `post-install`, lets understand what happens
-2. Discuss by going to documentation [Hooks and the Release Lifecycle](https://helm.sh/docs/topics/charts_hooks/#hooks-and-the-release-lifecycle)
+1. 假设对于 `helm install` 生命周期，我们定义了两个钩子 `pre-install` 和 `post-install`，让我们了解会发生什么
+2. 通过查看文档 [钩子和 Release 生命周期](https://helm.sh/docs/topics/charts_hooks/#hooks-and-the-release-lifecycle) 进行讨论
 
-## Step-08: Test Helm Hook: pre-upgrade
+## 步骤-08: 测试 Helm 钩子: pre-upgrade
 
 ```bash
-# Change Directory (In Helm Chart Folder)
+# 切换目录 (在 Helm 图表文件夹中)
 cd hooksdemo1
 
-# Upgrade Helm Release
+# 升级 Helm Release
 helm list
 helm upgrade myapp101 . --set image.tag=0.2.0
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation:
-1. We should see "myhook-preupgrade" pod which should be completed status
+观察结果:
+1. 我们应该看到 "myhook-preupgrade" pod，它应该是完成状态
 
-# Describe Pod
+# 描述 Pod
 kubectl describe pod myhook-preupgrade
 
-# Verify Pod Start and Finish Times
+# 验证 Pod 开始和结束时间
 kubectl get pods
 kubectl describe pod myhook-preupgrade | grep -E 'Anno|Started:|Finished:'
 kubectl describe pod myapp101-hooksdemo1-7b997b4556-t6s75 | grep -E 'Anno|Started:|Finished:'
 
-# Access Application
+# 访问应用程序
 kubectl get svc
 http://localhost:31239
-Observation: We should see V2 version of Application
+观察结果: 我们应该看到应用程序的 V2 版本
 ```
 
-## Step-09: Test Helm Hook: post-delete
+## 步骤-09: 测试 Helm 钩子: post-delete
 
 ```bash
-# Change Directory (In Helm Chart Folder)
+# 切换目录 (在 Helm 图表文件夹中)
 cd hooksdemo1
 
-# Uninstall/Delete Helm Release
+# 卸载/删除 Helm Release
 helm list
 helm uninstall myapp101 
 
-# List Kubernetes Pods
+# 列出 Kubernetes Pods
 kubectl get pods
-Observation:
-1. We should see "myhook-postdelete" pod which should be completed status
-2. We should see all the 3 hook pods present even after deleting/uninstalling the release
+观察结果:
+1. 我们应该看到 "myhook-postdelete" pod，它应该是完成状态
+2. 即使在删除/卸载 release 后，我们应该看到所有 3 个钩子 pod 仍然存在
 ```
 
-## Step-10: Hook resources are not managed with corresponding releases
+## 步骤-10: 钩子资源不与相应的 release 一起管理
 
-1. The resources that a hook creates are currently not tracked or managed as part of the release.
-2. Once Helm verifies that the hook has reached its ready state, it will leave the hook resource alone.
-3. In short, `helm uninstall` will not delete hook resources.
+1. 钩子创建的资源目前不作为 release 的一部分进行跟踪或管理。
+2. 一旦 Helm 验证钩子已达到就绪状态，它将不再管理钩子资源。
+3. 简而言之，`helm uninstall` 不会删除钩子资源。

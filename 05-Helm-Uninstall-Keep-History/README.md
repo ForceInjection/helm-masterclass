@@ -1,10 +1,12 @@
-# Helm Uninstall Keep History 
+# Helm 卸载保留历史
 
-## Step-01: Introduction
-- We will learn to uninstall Helm Release in a most effective way (best practice) so that we don't loose the history of our Helm Release
-- **Important Note:** This demo is in continuation to previous release demo
+## 步骤-01：介绍
 
-## Step-02: Uninstall Helm Release with --keep-history Flag
+- 我们将学习以最有效的方式（最佳实践）卸载 Helm 发布，这样我们就不会丢失 Helm 发布的历史记录
+- **重要提示：** 此演示是前一个发布演示的延续
+
+## 步骤-02：使用 --keep-history 标志卸载 Helm 发布
+
 ```bash
 # List Helm Releases
 helm list
@@ -30,7 +32,8 @@ Observation:
 2. We can see all the details of release with "Status: Uninstalled"
 ```
 
-## Step-03: Rollback Uninstalled Release
+## 步骤-03：回滚已卸载的发布
+
 ```bash
 # List Release History
 helm history myapp101
@@ -54,7 +57,8 @@ helm status myapp101 --show-resources
 http://localhost:31232
 ```
 
-## Step-04: Uninstall Helm Release - NO FLAGS
+## 步骤-04：卸载 Helm 发布 - 无标志
+
 ```bash
 # List Helm Releases
 helm list
@@ -77,7 +81,8 @@ As the release is permanently removed, we dont get an error "Error: release: not
 helm history myapp101
 ```
 
-## Step-05: Rollback Uninstalled Release
+## 步骤-05：回滚已卸载的发布
+
 ```bash
 # Rollback Helm Uninstalled Release
 helm rollback <RELEASE> [REVISION] [flags]
@@ -86,7 +91,8 @@ Observation:
 Should throw error "Error: release: not found"
 ```
 
-## Step-06: Best Practice for Helm Uninstall
-- It is recommended to always use `--keep-history Flag` for following reasons
-- Keeping Track of uninstalled releases
-- Quick Rollback if that Release is required
+## 步骤-06：Helm 卸载的最佳实践
+
+- 建议始终使用 `--keep-history 标志`，原因如下：
+- 跟踪已卸载的发布
+- 如果需要该发布，可以快速回滚

@@ -1,13 +1,13 @@
-# Helm Dependency - Using Tags
+# Helm 依赖 - 使用标签
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Instead of using `condition` we are going to use `tags`
-- If we have more amount of subcharts that need to be divided in to groups then we need to use `tags` instead of `condition`
+- 我们将使用 `tags` 而不是 `condition`
+- 如果我们有大量需要分组的子 chart，那么我们需要使用 `tags` 而不是 `condition`
 
-## Step-02: Review Chart.yaml
+## 步骤-02: 查看 Chart.yaml
 
-- Instead of using `condition` we are going to use `tags`
+- 我们将使用 `tags` 而不是 `condition`
 
 ```yaml
 apiVersion: v2
@@ -47,51 +47,51 @@ dependencies:
     - backend
  ```
 
-## Step-03: Usecase-1: Both frontend and backend false
+## 步骤-03: 用例-1: 前端和后端都为 false
 
  ```bash
- # Usecase-1: Both frontend and backend false
+ # 用例-1: 前端和后端都为 false
  # values.yaml
 tags:
   frontend: false
   backend: false
 
-# Helm Install
+# Helm 安装
 helm install myapp1 parentchart/ --atomic
 
-# List Pods
+# 列出 Pod
 kubectl get pods
-Observation:
-1.  We should see only 1 pod (parentchart) pod running
+观察结果:
+1.  我们应该只看到 1 个 pod（parentchart）在运行
 ```
 
-## Step-04: Usecase-2: Backend True and Frontend false
+## 步骤-04: 用例-2: 后端为 True，前端为 false
 
  ```bash
-# Helm Install
+# Helm 升级
 helm upgrade myapp1 parentchart/ --atomic --set tags.backend=true
 
-# List Pods
+# 列出 Pod
 kubectl get pods
-Observation:
-1.  We should see 2 pods (parentchart and childchart2) running
+观察结果:
+1.  我们应该看到 2 个 pod（parentchart 和 childchart2）在运行
 ```
 
-## Step-05: Usecase-2: Backend True and Frontend True
+## 步骤-05: 用例-3: 后端为 True，前端为 True
 
  ```bash
-# Helm Install
+# Helm 升级
 helm upgrade myapp1 parentchart/ --atomic --set tags.backend=true --set tags.frontend=true
 
-# List Pods
+# 列出 Pod
 kubectl get pods
-Observation:
-1.  We should see 5 pods (parentchart, childchart2, childchart4dev, childchart4qa1, childchart4qa2) running
+观察结果:
+1.  我们应该看到 5 个 pod（parentchart、childchart2、childchart4dev、childchart4qa1、childchart4qa2）在运行
 ```
 
-## Step-06: Uninstall Helm Charts
+## 步骤-06: 卸载 Helm Chart
 
 ```bash
-# Helm Uninstall
+# Helm 卸载
 helm uninstall myapp1
 ```

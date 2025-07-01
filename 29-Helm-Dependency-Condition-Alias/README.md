@@ -1,13 +1,13 @@
-# Helm Dependency - Condition with Alias
+# Helm 依赖 - 带别名的条件
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Implement `Condition` for enabling or disabling Sub Charts or Child Charts
-- Override subchart(child chart) values from parent chart
+- 实现 `Condition` 来启用或禁用子 Chart 或子图表
+- 从父 chart 覆盖子 chart（子图表）的值
 
-## Step-02: Chart.yaml
+## 步骤-02: Chart.yaml
 
-- If we have multiple dependencies with same chart name `mychart4` with different alias names like `childchart4dev` and `childchart4qa` in this case we need to define values.yaml with `alias names` for enabling or disabling those sub charts
+- 如果我们有多个具有相同 chart 名称 `mychart4` 但具有不同别名（如 `childchart4dev` 和 `childchart4qa`）的依赖，在这种情况下，我们需要在 values.yaml 中使用 `别名` 来启用或禁用这些子 chart
 
 ```yaml
 apiVersion: v2
@@ -34,12 +34,12 @@ dependencies:
   condition: childchart2.enabled
 ```
 
-## Step-03: Update values.yaml
+## 步骤-03: 更新 values.yaml
 
-- Here only `childchart4qa` so only k8s resources for that chart should created in addition to parent chart resources
+- 这里只启用 `childchart4qa`，所以除了父 chart 资源外，只应为该 chart 创建 k8s 资源
 
 ```yaml
-# Values for Child Charts with Alias Name of Chart
+# 使用 Chart 别名为子 Chart 设置值
 childchart4dev:
   enabled: false 
 childchart4qa:
@@ -48,42 +48,42 @@ childchart2:
   enabled: false 
 ```
 
-## Step-04: Deploy and Test
+## 步骤-04: 部署和测试
 
 ```bash
-# Helm Dependency Update
+# Helm 依赖更新
 helm dependency update parentchart/
-or
+或
 helm dep update parentchart/
 
-# Helm Install
+# Helm 安装
 helm install myapp1 parentchart/ --atomic
 
-# Helm List
+# Helm 列表
 helm list
 
-# Helm Status
+# Helm 状态
 helm status myapp1 --show-resources
 
-# List Deployments
+# 列出部署
 kubectl get deploy
-Observation:
-1. Resources for childchart4qa should be created in addition to parent chart
+观察结果:
+1. 除了父 chart 外，还应为 childchart4qa 创建资源
 
-# List Pods
+# 列出 Pod
 kubectl get pods
 
-# List Services
+# 列出服务
 kubectl get svc
 
-# Access Application
+# 访问应用程序
 parentchart: http://localhost:<port-from-get-svc-output>
 childchart4qa: http://localhost:<port-from-get-svc-output>
 ```
 
-## Step-05: Uninstall Helm Release
+## 步骤-05: 卸载 Helm 发布
 
 ```bash
-# Helm Uninstall
+# Helm 卸载
 helm uninstall myapp1
 ```

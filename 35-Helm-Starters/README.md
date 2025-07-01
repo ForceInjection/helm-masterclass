@@ -1,165 +1,165 @@
-# Helm Starters
+# Helm 启动器
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- We are going to learn about Helm Starter Charts
-- Create / Build a Starter Chart
-- Using starter chart build a base chart
+- 我们将学习 Helm 启动器图表
+- 创建/构建启动器图表
+- 使用启动器图表构建基础图表
 
-## Step-02: Helm Starter Charts
+## 步骤-02: Helm 启动器图表
 
-### What are Helm Starter Charts ?
+### 什么是 Helm 启动器图表？
 
-1. Starter charts are same as regular Helm Charts
-2. Starter charts are reusable template that helps us in building new charts.
-3. A new developer don't need to start from scratch in your organization if you already have starter charts. He can use them and build on top of it.
-4. We can also enforce certain resources that needs to be available in the created charts.
+1. 启动器图表与常规 Helm 图表相同
+2. 启动器图表是可重用的模板，帮助我们构建新图表。
+3. 如果您的组织已经有启动器图表，新开发人员就不需要从头开始。他们可以使用它们并在其基础上构建。
+4. 我们还可以强制要求在创建的图表中提供某些资源。
 
-### Where do we place the starter charts ?
+### 我们在哪里放置启动器图表？
 
-5. We need to place starter charts in folder "$HELM_DATA_HOME/starters" folder
+1. 我们需要将启动器图表放在 "$HELM_DATA_HOME/starters" 文件夹中
 
-### Are there any drawbacks ?
+### 有什么缺点吗？
 
-6. The `Chart.yaml` will be overwritten by the generator.
-7. Due to that we don't get the version or dependency charts from the starter chart template.
+1. `Chart.yaml` 将被生成器覆盖。
+2. 因此，我们无法从启动器图表模板中获取版本或依赖图表。
 
-## Step-03: Create a Simple Helm Chart and Modify to a Starter Chart
+## 步骤-03: 创建简单的 Helm 图表并修改为启动器图表
 
-- This step is completely optional for you.
-- You will have `mystarterchart` folder ready for you to move on with next steps in the demo.
+- 这一步对您来说是完全可选的。
+- 您将有 `mystarterchart` 文件夹准备好，可以继续演示中的下一步。
 
 ```bash
-# Helm Create
+# Helm 创建
 helm create mystarterchart
 
-# Important Note
-1. We are going to modify the default helm chart when we create it using "helm create" to very simpler one with only "deployment.yaml" and "service.yaml"
+# 重要说明
+1. 当我们使用 "helm create" 创建默认 helm 图表时，我们将把它修改为只有 "deployment.yaml" 和 "service.yaml" 的非常简单的图表
 
-# Changes in Templates folder
-1. Delete "tests" folder
-2. Delete hpa.yaml, ingress.yaml and serviceaccount.yaml
-3. Update "_helpers.tpl" to remove "serviceAccountName" template
-4. In values.yaml, remove serviceaccount, ingress and autoscaling values
-5. In values.yaml, update the service to NodePort with port as 31239
-6. In values.yaml, update the repository value to "ghcr.io/stacksimplify/kubenginxhelm"
-7. In deployment.yaml, remove autoscaling and serviceaccount references
-8. In service.yaml, add nodeport argument with action to bring the port 31239 from values.yaml
-9. In Chart.yaml, just change appversion and version to 1.0.0. This will anyway override when we create charts using starter charts but just want to compare and test it. 
-10. In Chart.yaml, update the dependencies section. This will anyway override when we create charts using starter charts but just want to compare and test it. 
+# Templates 文件夹中的更改
+1. 删除 "tests" 文件夹
+2. 删除 hpa.yaml、ingress.yaml 和 serviceaccount.yaml
+3. 更新 "_helpers.tpl" 以删除 "serviceAccountName" 模板
+4. 在 values.yaml 中，删除 serviceaccount、ingress 和 autoscaling 值
+5. 在 values.yaml 中，将服务更新为 NodePort，端口为 31239
+6. 在 values.yaml 中，将 repository 值更新为 "ghcr.io/stacksimplify/kubenginxhelm"
+7. 在 deployment.yaml 中，删除 autoscaling 和 serviceaccount 引用
+8. 在 service.yaml 中，添加 nodeport 参数，从 values.yaml 中获取端口 31239
+9. 在 Chart.yaml 中，只需将 appversion 和 version 更改为 1.0.0。当我们使用启动器图表创建图表时，这将被覆盖，但只是想比较和测试它。
+10. 在 Chart.yaml 中，更新 dependencies 部分。当我们使用启动器图表创建图表时，这将被覆盖，但只是想比较和测试它。
 dependencies:
 - name: mychart4
   version: "0.1.0"
   repository: "https://stacksimplify.github.io/helm-charts/"
-11. Sub Charts: Download and untar a Helm Chart to "charts" directory. We are going to observe what happens to "charts" directory when we create a chart from starter chart
+11. 子图表：下载并解压 Helm 图表到 "charts" 目录。我们将观察当我们从启动器图表创建图表时 "charts" 目录会发生什么
 helm pull https://stacksimplify.github.io/helm-charts/mychart4-0.1.0.tgz --untar
-12. Update NOTES.txt: remove if statement for Ingress
+12. 更新 NOTES.txt：删除 Ingress 的 if 语句
 ```
 
-## Step-04: Test the Chart before converting it completely to Starter Chart
+## 步骤-04: 在完全转换为启动器图表之前测试图表
 
 ```bash
-# Change Directory
+# 切换目录
 cd mystarterchart
 
 # Helm Lint
 helm lint 
 URL: https://helm.sh/docs/helm/helm_lint/
-1. examine a chart for possible issues
-2. This command takes a path to a chart and runs a series of tests to verify that the chart is well-formed.
-3. If the linter encounters things that will cause the chart to fail installation, it will emit [ERROR] messages. 
-4. If it encounters issues that break with convention or recommendation, it will emit [WARNING] messages.
+1. 检查图表可能存在的问题
+2. 此命令获取图表路径并运行一系列测试来验证图表格式是否正确。
+3. 如果 linter 遇到会导致图表安装失败的问题，它将发出 [ERROR] 消息。
+4. 如果遇到违反约定或建议的问题，它将发出 [WARNING] 消息。
 
-# Install Helm Release
+# 安装 Helm Release
 helm install myapp1 . --atomic
 
-# List Pods and Services
+# 列出 Pods 和 Services
 kubectl get pods
 kubectl get svc
 
-# Access Application
-Parent Chart: http://localhost:31239
-mychart4 chart: http://localhost:<port-from-get-svc-output>
+# 访问应用程序
+父图表: http://localhost:31239
+mychart4 图表: http://localhost:<port-from-get-svc-output>
 
-# Uninstall Helm Release
+# 卸载 Helm Release
 helm uninstall myapp1
 ```
 
-## Step-05: Replace "mystarterchart" with `<CHARTNAME>` in all files
+## 步骤-05: 在所有文件中将 "mystarterchart" 替换为 `<CHARTNAME>`
 
-**Important Note:**  All occurrences of `<CHARTNAME>` will be replaced with the specified chart name so that starter charts can be used as templates.
+**重要说明：** 所有出现的 `<CHARTNAME>` 都将被替换为指定的图表名称，以便启动器图表可以用作模板。
 
 1. _helpers.tpl
 2. deployment.yaml
 3. service.yaml
 4. NOTES.txt
 5. Chart.yaml
-6. values.yaml (Here just in comment)
+6. values.yaml (这里只是在注释中)
 
-## Step-06: Copy mystarterchart to HELM_DATA_HOME/starters
+## 步骤-06: 将 mystarterchart 复制到 HELM_DATA_HOME/starters
 
 ```bash
-# Helm env command
+# Helm env 命令
 helm env
 
 # Helm env HELM_DATA_HOME
 helm env HELM_DATA_HOME
 HELM_DATA_HOME="/Users/kalyan/Library/helm"
 
-# Create folder helm and helm/starters
+# 创建文件夹 helm 和 helm/starters
 cd /Users/kalyan/Library/
 mkdir helm
 cd helm
 mkdir starters
 
-# COPY mystarterchart folder 
+# 复制 mystarterchart 文件夹
 cp -r mystarterchart /Users/kalyan/Library/helm/starters/
 ```
 
-## Step-07: Create new chart using Starter Chart
+## 步骤-07: 使用启动器图表创建新图表
 
-- [Docker Image: kubenginxhelm](https://github.com/users/stacksimplify/packages/container/package/kubenginxhelm)
+- [Docker 镜像: kubenginxhelm](https://github.com/users/stacksimplify/packages/container/package/kubenginxhelm)
 
 ```bash
-# Change Directory
+# 切换目录
 cd MYCHARTS
 
-# Helm Create using starter chart
+# 使用启动器图表创建 Helm
 helm create mychart9 --starter=mystarterchart
 
-# Review mychart9 files
+# 查看 mychart9 文件
 1. Chart.yaml
-- It should be regenerated and versions should be overided for both version and appversion to 0.1.0
-- Update the appVersion to "0.3.0" with quotes(it should be string in quotes) 
-- Our Docker Image version is also "0.3.0" which matches our Chart appVersion so we are good. 
+- 它应该被重新生成，版本和 appversion 都应该被覆盖为 0.1.0
+- 将 appVersion 更新为 "0.3.0"，带引号（它应该是带引号的字符串）
+- 我们的 Docker 镜像版本也是 "0.3.0"，与我们的图表 appVersion 匹配，所以我们很好。
 - https://github.com/users/stacksimplify/packages/container/package/kubenginxhelm
-2. deployment.yaml - Review it
-3. service.yaml - Review it
-4. values.yaml - Review it
-5. NOTES.txt - Review it
-6. "charts" directory: We should see "mychart4" should be present as packaged file "mychart4-0.1.0.tgz" even though in our starter chart we have it as UNZIPPED
+2. deployment.yaml - 查看它
+3. service.yaml - 查看它
+4. values.yaml - 查看它
+5. NOTES.txt - 查看它
+6. "charts" 目录：我们应该看到 "mychart4" 应该作为打包文件 "mychart4-0.1.0.tgz" 存在，即使在我们的启动器图表中它是解压的
 ```
 
-## Step-08: Create Helm Release from new chart created using starter chart
+## 步骤-08: 从使用启动器图表创建的新图表创建 Helm Release
 
 ```bash
-# Change Directory
+# 切换目录
 cd MYCHARTS/mychart9
 
 # Helm Lint
 helm lint 
 
-# Install Helm Release
+# 安装 Helm Release
 helm install myapp901 .
 
-# List Pods and Services
+# 列出 Pods 和 Services
 kubectl get pods
 kubectl get svc
 
-# Access Application
-Parent Chart: http://localhost:31239
-mychart4 chart: http://localhost:<port-from-get-svc-output>
+# 访问应用程序
+父图表: http://localhost:31239
+mychart4 图表: http://localhost:<port-from-get-svc-output>
 
-# Uninstall Helm Release
+# 卸载 Helm Release
 helm uninstall myapp901
 ```

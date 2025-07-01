@@ -1,105 +1,105 @@
-# Helm Template Functions and Pipelines
+# Helm 模板函数和管道
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-1. Template Actions `{{ }}`
-2. Action Elements `{{ .Release.Name }}`
-3. Quote Function
-4. Pipeline
-5. default Function
-6. lower function
-7. Controlling White Spaces `{{-  -}}`
-8. indent function
-9. nindent function
+1. 模板动作 `{{ }}`
+2. 动作元素 `{{ .Release.Name }}`
+3. Quote 函数
+4. 管道
+5. default 函数
+6. lower 函数
+7. 控制空白字符 `{{-  -}}`
+8. indent 函数
+9. nindent 函数
 10. toYaml
 
-## Step-02: Template Action "{{ }}"
+## 步骤-02: 模板动作 "{{ }}"
 
-- Anything in between Template Action `{{ .Chart.Name }}` is called Action Element
-- Anything in between Template Action `{{ .Chart.Name }}` will be rendered by helm template engine and replace necessary values
-- Anything outside of the template action will be printed as it is.
-- Action elements defined inside the `{{ }}` will help us to retrieve data from other sources (example: `.Chart.Name`).
+- 模板动作 `{{ .Chart.Name }}` 之间的任何内容都称为动作元素
+- 模板动作 `{{ .Chart.Name }}` 之间的任何内容都将由 helm 模板引擎渲染并替换必要的值
+- 模板动作之外的任何内容都将按原样打印。
+- 在 `{{ }}` 内定义的动作元素将帮助我们从其他源检索数据（例如：`.Chart.Name`）。
 
-### Step-02-01: Valid Action Element
+### 步骤-02-01: 有效的动作元素
 
 ```bash
-# deployment.yaml file
+# deployment.yaml 文件
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  # Template Action with Action Elements
+  # 带有动作元素的模板动作
   name: {{ .Release.Name }}-{{ .Chart.Name }}
 
-# Change to CHART Directory
+# 切换到 CHART 目录
 cd helmbasics
 
-# Helm Template Command
+# Helm Template 命令
 helm template myapp101 .
-1. helm template command helps us to check the output of the chart in fully rendered Kubernetes resource templates. 
-2. This will be very helpful when we are developing a new chart, making changes to the chart templates, for debugging etc.
+1. helm template 命令帮助我们检查完全渲染的 Kubernetes 资源模板中的 chart 输出。
+2. 这在我们开发新 chart、修改 chart 模板、调试等时非常有用。
 ```
 
-### Step-02-02: Invalid Action Element
+### 步骤-02-02: 无效的动作元素
 
 ```bash
-# deployment.yaml file
+# deployment.yaml 文件
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  # Template Action with Action Elements
+  # 带有动作元素的模板动作
   name: {{ something }}-{{ .Chart.Name }}
-# Change to CHART Directory
+# 切换到 CHART 目录
 cd helmbasics
 
-# Helm Template Command
+# Helm Template 命令
 helm template myapp101 .  
-Observation:
-1. Should fail with error
-2. In short, inside Action Element we should have 
+观察结果:
+1. 应该失败并报错
+2. 简而言之，在动作元素内部我们应该有
 
-Error: parse error at (helmbasics/templates/deployment.yaml:10): function "something" not defined
+错误: parse error at (helmbasics/templates/deployment.yaml:10): function "something" not defined
 ```
 
-## Step-03: Template Function: quote
+## 步骤-03: 模板函数: quote
 
 ```bash
-# Add Quote Function 
+# 添加 Quote 函数
   annotations:    
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    # quote function
+    # quote 函数
     app.kubernetes.io/managed-by: {{ quote .Release.Service }} 
 
-# Change to CHART Directory
+# 切换到 CHART 目录
 cd helmbasics
 
-# Helm Template Command
+# Helm Template 命令
 helm template myapp101 .
 ```
 
-## Step-04: Pipeline
+## 步骤-04: 管道
 
-- Pipelines are an efficient way of getting several things done in sequence.
-- Inverting the order is a common practice in templates (.val | quote )
+- 管道是按顺序完成多个任务的有效方式。
+- 在模板中反转顺序是常见做法 (.val | quote )
 
 ```bash
-# Add Quote Function with Pipeline
+# 使用管道添加 Quote 函数
   annotations:    
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    # quote function
+    # quote 函数
     app.kubernetes.io/managed-by: {{ quote .Release.Service }} 
-    # quote function with pipeline
+    # 使用管道的 quote 函数
     app.kubernetes.io/managed-by: {{ .Release.Service | quote }}               
 
-# Change to CHART Directory
+# 切换到 CHART 目录
 cd helmbasics
 
-# Helm Template Command
+# Helm Template 命令
 helm template myapp101 .
 ```
 
-## Step-05: Template Function: default and lower
+## 步骤-05: 模板函数: default 和 lower
 
-- [default function](https://helm.sh/docs/chart_template_guide/function_list/#default)
+- [default 函数](https://helm.sh/docs/chart_template_guide/function_list/#default)
 
 ```bash
 # values.yaml
@@ -182,15 +182,15 @@ cd helmbasics
 helm template myapp101 .    
 ```
 
-## Step-08: Template Function: toYaml
+## 步骤-08: 模板函数: toYaml
 
 - **toYaml:**
-- We can use [toYaml function](https://helm.sh/docs/chart_template_guide/function_list/#type-conversion-functions) inside the helm template actions to convert an object into YAML.
-- Convert list, slice, array, dict, or object to indented yaml.
+- 我们可以在 helm 模板动作中使用 [toYaml 函数](https://helm.sh/docs/chart_template_guide/function_list/#type-conversion-functions) 将对象转换为 YAML。
+- 将列表、切片、数组、字典或对象转换为缩进的 yaml。
 
 ```bash
 # values.yaml
-# Resources for testing Template Function: toYaml 
+# 用于测试模板函数的资源: toYaml 
 resources: 
   limits:
     cpu: 100m
@@ -209,24 +209,24 @@ resources:
         resources: 
         {{- toYaml .Values.resources | nindent 10}}
 
-# Change to CHART Directory
+# 切换到 CHART 目录
 cd helmbasics
 
-# Helm Template Command
+# Helm Template 命令
 helm template myapp101 .
 
-# Helm Install with --dry-run
+# 使用 --dry-run 进行 Helm 安装
 helm install myapp101 . --dry-run
 
-# Helm Install
+# Helm 安装
 helm install myapp101 . --atomic
 
-# List k8s Pods
+# 列出 k8s Pods
 kubectl get pods 
 
-# Describe Pod
+# 描述 Pod
 kubectl describe pod <POD-NAME>
 
-# Helm Uninstall
+# Helm 卸载
 helm uninstall myapp101
 ```

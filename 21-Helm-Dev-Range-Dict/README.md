@@ -1,19 +1,19 @@
-# Helm Development - Flow Control Range with Dictionary
+# Helm 开发 - 流程控制 Range 与字典
 
-## Step-01: Introduction
+## 步骤-01: 介绍
 
-- Implement Range with Map or Dictionary from `values.yaml`
-- Implement on how to call `Helm Variable` in Range loop
+- 使用 `values.yaml` 中的映射或字典实现 Range
+- 实现如何在 Range 循环中调用 `Helm 变量`
 
-## Step-02: Range with Key Value pairs or Map or Dictionary
+## 步骤-02: Range 与键值对或映射或字典
 
-- **Source Location:** backupfiles/namespace.yaml
-- **Destication Location:** helmbasics/templates/namespace.yaml
-- **File Name:** namespace.yaml
+- **源位置:** backupfiles/namespace.yaml
+- **目标位置:** helmbasics/templates/namespace.yaml
+- **文件名:** namespace.yaml
 
 ```yaml
 # values.yaml
-# Range with Dictionary
+# Range 与字典
 myapps:
   config1: 
     appName: myapp1
@@ -26,7 +26,7 @@ myapps:
     appTech: HTML
     appDb: mysql
   
-# Range with Dictionary
+# Range 与字典
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -36,43 +36,43 @@ data:
 {{- $key | nindent 2}}: {{ $value }}
 {{- end}}  
 
-# Change to Chart Directory
+# 切换到 Chart 目录
 cd helmbasics  
 
 # Helm Template
 helm template myapp1 .
 
-# Helm Install with dry-run
+# 使用 dry-run 进行 Helm 安装
 helm install myapp1 . --dry-run 
 
-# Helm Install and Test
+# Helm 安装和测试
 helm install myapp1 . --atomic
 helm list
 
-# Helm Status
+# Helm 状态
 helm status myapp1 --show-resources
 
-# List k8s namespaces
+# 列出 k8s 命名空间
 kubectl get configmap
 kubectl get configmap <NAME-OF-CONFIGMAP> -o yaml
 kubectl get configmap myapp1-helmbasics-configmap1 -o yaml
 
-# Observation:
-We should see configmap with key value pairs
+# 观察结果:
+我们应该看到带有键值对的 configmap
 
-# Uninstall Helm Release
+# 卸载 Helm Release
 helm uninstall myapp1
 ```
 
-## Step-03: Range - Access Builtin Object from Root inside Range using Helm  Variable
+## 步骤-03: Range - 使用 Helm 变量在 Range 内部访问根内置对象
 
-- **Source Location:** backupfiles/namespace-with-variable.yaml
-- **Destication Location:** helmbasics/templates/namespace-with-variable.yaml
-- **File Name:** namespace-with-variable.yaml
+- **源位置:** backupfiles/namespace-with-variable.yaml
+- **目标位置:** helmbasics/templates/namespace-with-variable.yaml
+- **文件名:** namespace-with-variable.yaml
 
 ```yaml
 # values.yaml
-# Range with Dictionary
+# Range 与字典
 myapps:
   config1: 
     appName: myapp1
@@ -85,7 +85,7 @@ myapps:
     appTech: HTML
     appDb: mysql
   
-# Range: Access Root Object in Range with Helm Variable
+# Range: 使用 Helm 变量在 Range 中访问根对象
 {{- $chartName := .Chart.Name  }}
 apiVersion: v1
 kind: ConfigMap
@@ -96,27 +96,27 @@ data:
 {{- $key | nindent 2}}: {{ $value }}-{{ $chartName }}
 {{- end}}  
 
-# Change to Chart Directory
+# 切换到 Chart 目录
 cd helmbasics  
 
 # Helm Template
 helm template myapp1 .
 
-# Helm Install with dry-run
+# 使用 dry-run 进行 Helm 安装
 helm install myapp1 . --dry-run 
 
-# Helm Install and Test
+# Helm 安装和测试
 helm install myapp1 . --atomic
 helm list
 
-# List k8s namespaces
+# 列出 k8s 命名空间
 kubectl get configmap
 kubectl get configmap <NAME-OF-CONFIGMAP> -o yaml
 kubectl get configmap myapp1-helmbasics-configmap2 -o yaml
 
-# Observation:
-We should see configmap with key value pairs
+# 观察结果:
+我们应该看到带有键值对的 configmap
 
-# Uninstall Helm Release
+# 卸载 Helm Release
 helm uninstall myapp1
 ```
